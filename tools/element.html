@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script>
+      // https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_custom_elements
+      // https://developers.google.com/web/fundamentals/web-components/customelements?hl=zh-cn
+
+      class OmegaInput extends HTMLElement {
+        constructor() {
+          super();
+
+          const ShadowRoot = this.attachShadow({ mode: 'open' });
+
+          ShadowRoot.innerHTML = `
+          <label for="">
+            <input type="text" />
+          </label>
+          `;
+        }
+      }
+
+      customElements.define('omega-input', OmegaInput);
+
+      const container = document.getElementById('container');
+      const element = document.createElement('omega-input');
+
+      container.appendChild(element);
+    </script>
+  </body>
+</html>
