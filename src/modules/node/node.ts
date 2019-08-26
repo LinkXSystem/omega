@@ -1,15 +1,15 @@
 import Listener from '../../lib/listener';
 import UUID from '../../lib/uuid';
 import { Workspace } from '../workspace';
+import { Point } from '../common';
 
 interface NodeInterface {
   uuid: string;
   type: string;
 
   element: HTMLElement;
-
   rect: DOMRect | ClientRect;
-
+  coordinate: Point;
   workspace: Workspace;
 
   render: Function;
@@ -21,6 +21,7 @@ abstract class Node implements NodeInterface {
 
   element: HTMLElement;
   rect: DOMRect | ClientRect;
+  coordinate: Point;
   workspace: Workspace;
 
   constructor(workspace: Workspace, type: string) {
@@ -54,21 +55,19 @@ abstract class Node implements NodeInterface {
   }
 
   onDraggableStart(event: MouseEvent) {
-    console.log(event);
     Listener.bind(this.element, 'mousemove', this.onDrag);
   }
 
   onDrag(event: MouseEvent) {
-    console.log(event);
-    // const { x, y } = event;
+    const { width, height } = this.rect;
+    const { x, y } = event;
 
-    // this.element.style.position = 'absolute';
-    // this.element.style.left = `${x}px`;
-    // this.element.style.top = `${y}px`;
+    this.element.style.position = 'absolute';
+    this.element.style.left = `${x - width / 2}px`;
+    this.element.style.top = `${y - height / 2}px`;
   }
 
   onDraggableFinish(event: MouseEvent) {
-    console.log(event);
     Listener.unbind(this.element, 'mousemove', this.onDrag);
   }
 
