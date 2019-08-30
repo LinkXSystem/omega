@@ -24,6 +24,8 @@
       }
 
       .sidebar {
+        display: none;
+
         position: fixed;
         z-index: 1000;
         top: 0em;
@@ -87,9 +89,60 @@
       let width = (canvas.width = window.innerWidth);
       let height = (canvas.height = window.innerHeight);
 
+      let center = {
+        x: width / 2,
+        y: height / 2,
+      };
+
+      const context = canvas.getContext('2d');
+
+      function render() {
+        // context.save();
+        // context.translate(center.x, center.y);
+
+        context.translate(center.x, center.y);
+
+
+        context.rotate((Math.PI / 180) * 45);
+
+        // context.beginPath();
+        // context.strokeStyle = '#b2b2b2';
+        // context.moveTo(center.x, 0);
+        // context.lineTo(center.x, height);
+        // context.stroke();
+        // context.closePath();
+
+        // context.beginPath();
+
+        context.shadowColor = '#b2b2b2';
+        context.shadowBlur = 20;
+
+        context.fillStyle = '#ffffff';
+        context.fillRect(0 - 100, 0 - 100, 200, 200);
+        // context.fillRect(0, 0, 200, 200);
+        context.closePath();
+
+        // context.restore();
+      }
+
+      function animation() {
+        context.clearRect(0, 0, width, height);
+
+        render();
+
+        // requestAnimationFrame(animation);
+      }
+
+      animation();
+
       window.addEventListener('resize', () => {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
+
+        center = {
+          x: width / 2,
+          y: height / 2,
+        };
       });
     </script>
   </body>
