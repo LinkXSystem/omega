@@ -14,4 +14,4 @@ class OutputConnector implements Connector {
   refresh() {}
 }
 
-export { InputConnector, OutputConnector };
+export { Connector, InputConnector, OutputConnector };
