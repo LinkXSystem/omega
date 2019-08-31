@@ -84,6 +84,114 @@
       </section>
     </div>
     <script>
+      class Rect {
+        constructor(
+          context,
+          x,
+          y,
+          width,
+          height,
+          color,
+          degree = 0,
+          stroke = false
+        ) {
+          this.context = context;
+          this.x = x;
+          this.y = y;
+          this.width = width;
+          this.height = height;
+          this.color = color;
+          this.degree = degree;
+          this.stroke = stroke;
+        }
+
+        transform() {
+          const { context, x, y, width, height, color, degree } = this;
+
+          context.translate(x, y);
+          context.rotate((Math.PI / 180) * degree);
+
+          context.beginPath();
+          context.shadowColor = '#b2b2b2';
+          context.shadowBlur = 10;
+          context.fillStyle = color;
+          context.fillRect(0 - width / 2, 0 - height / 2, width, height);
+          context.beginPath();
+        }
+
+        draw() {
+          const { context, x, y, width, height, color } = this;
+
+          context.beginPath();
+
+          context.shadowColor = '#b2b2b2';
+          context.shadowBlur = 10;
+          context.fillStyle = color;
+          context.fillRect(x, y, width, height);
+          context.beginPath();
+        }
+
+        render() {
+          const { context, degree } = this;
+
+          const status = Boolean(degree % 360);
+
+          context.save();
+
+          status ? this.transform() : this.draw();
+
+          context.restore();
+        }
+      }
+    </script>
+    <script>
+      // https://jsfiddle.net/imys/48xx5fxu/2/
+      
+      class Background {
+        constructor(context, width, height, color) {
+          this.context = context;
+          this.width = width;
+          this.height = height;
+          this.color = color;
+
+          this.handleCacheLayer();
+        }
+
+        handleCacheLayer() {
+          const { width, height, color } = this;
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const context = canvas.getContext('2d');
+
+          for (let w = 20; w < width; w += 20) {
+            for (let h = 20; h < height; h += 20) {
+              this.point(context, w, h, color);
+            }
+          }
+
+          this.cache = {
+            canvas,
+            context
+          };
+        }
+
+        point(context, x, y, color) {
+          context.beginPath();
+          context.fillStyle = color;
+          context.arc(x, y, 1, 0, Math.PI * 2, false);
+          context.fill();
+          context.closePath();
+        }
+
+        render() {
+          const { context, cache, width, height } = this;
+
+          context.drawImage(cache.canvas, 0, 0, width, height);
+        }
+      }
+    </script>
+    <script>
       const canvas = document.getElementById('canvas');
 
       let width = (canvas.width = window.innerWidth);
@@ -91,38 +199,27 @@
 
       let center = {
         x: width / 2,
-        y: height / 2,
+        y: height / 2
       };
 
       const context = canvas.getContext('2d');
 
+      const background = new Background(context, width, height, '#dddddd');
+
+      const offset = 160;
+
+      // const rects = [
+      //   new Rect(context, center.x - offset, center.y - offset, 200, 200, '#ffffff', 45),
+      //   new Rect(context, center.x + offset, center.y - offset, 200, 200, '#ffffff', 45),
+      //   new Rect(context, center.x, center.y, 200, 200, '#ffffff', 45),
+      //   new Rect(context, center.x - offset, center.y + offset, 200, 200, '#ffffff', 45),
+      //   new Rect(context, center.x + offset, center.y + offset, 200, 200, '#ffffff', 45),
+      // ];
+
       function render() {
-        // context.save();
-        // context.translate(center.x, center.y);
+        background.render();
 
-        context.translate(center.x, center.y);
-
-
-        context.rotate((Math.PI / 180) * 45);
-
-        // context.beginPath();
-        // context.strokeStyle = '#b2b2b2';
-        // context.moveTo(center.x, 0);
-        // context.lineTo(center.x, height);
-        // context.stroke();
-        // context.closePath();
-
-        // context.beginPath();
-
-        context.shadowColor = '#b2b2b2';
-        context.shadowBlur = 20;
-
-        context.fillStyle = '#ffffff';
-        context.fillRect(0 - 100, 0 - 100, 200, 200);
-        // context.fillRect(0, 0, 200, 200);
-        context.closePath();
-
-        // context.restore();
+        // rects.forEach(rect => rect.render());
       }
 
       function animation() {
@@ -130,7 +227,7 @@
 
         render();
 
-        // requestAnimationFrame(animation);
+        requestAnimationFrame(animation);
       }
 
       animation();
@@ -141,7 +238,7 @@
 
         center = {
           x: width / 2,
-          y: height / 2,
+          y: height / 2
         };
       });
     </script>
