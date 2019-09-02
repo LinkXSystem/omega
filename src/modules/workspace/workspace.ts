@@ -1,4 +1,6 @@
 import Listener from '../../lib/listener';
+import EventEmitter from '../../engine/eventemitter';
+import Runtime from '../../engine/runtime';
 
 class Workspace {
   container: HTMLElement;
@@ -6,6 +8,9 @@ class Workspace {
 
   width: number;
   height: number;
+
+  emitter: EventEmitter;
+  runtime: Runtime;
 
   constructor(
     container: HTMLElement,
@@ -15,6 +20,9 @@ class Workspace {
   ) {
     this.container = container;
     this.automatic = automatic;
+
+    this.emitter = new EventEmitter();
+    this.runtime = new Runtime(this.emitter);
 
     this.width = width || window.innerWidth;
     this.height = height || window.innerHeight;

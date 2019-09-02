@@ -1,13 +1,5 @@
 import Events from 'events';
 
-class EventEmitter {
-  getName() {
-    console.log('dala');
-  }
-
-  on(event: string, callback: Function) {
-    console.log(event, callback);
-  }
-}
+class EventEmitter extends Events.EventEmitter {}
 
 export default EventEmitter;
