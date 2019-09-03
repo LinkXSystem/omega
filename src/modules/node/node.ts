@@ -57,11 +57,17 @@ abstract class Node implements NodeInterface {
   onDraggableStart(event: MouseEvent) {
     const { emitter } = this.workspace;
 
-    console.log(emitter);
+    const { x, y, width, height } = this.rect as DOMRect;
 
-    emitter.emit('mousedown', this);
+    emitter.emit('mousedown', {
+      element: this,
+      coordinate: {
+        x: x + width / 2,
+        y: y + height / 2,
+      },
+    });
 
-    Listener.bind(this.element, 'mousemove', this.onDrag);
+    // Listener.bind(this.element, 'mousemove', this.onDrag);
   }
 
   onDrag(event: MouseEvent) {

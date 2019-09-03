@@ -6,6 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
+      html,
+      body,
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #f5f5f5;
+        overflow: hidden;
+      }
+
       .element {
         position: fixed;
         top: 50%;
@@ -40,5 +53,13 @@
         stroke-width="1"
       />
     </svg>
+    <script>
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('height', '100%');
+
+      document.body.appendChild(svg);
+    </script>
   </body>
 </html>

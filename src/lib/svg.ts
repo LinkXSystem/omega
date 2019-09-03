@@ -1,11 +1,16 @@
-interface SVGElementOption {
-  label: string;
-  width: string | number;
-  fill: string;
-  stroke: string;
-}
+class Svg {
+  static Namespace: string = 'http://www.w3.org/2000/svg';
 
-export default class Svg {
+  static createElement(name: string, attributes: Object) {
+    const element = document.createElementNS(Svg.Namespace, name);
+    Object.entries(attributes).forEach(attribute => {
+      const [name, value] = attribute;
+      element.setAttribute(name, value);
+    });
+
+    return element;
+  }
+
   static setCubicBezierScale(offset: number, scale: number = 1.5) {
     return offset / scale;
   }
@@ -24,18 +29,18 @@ export default class Svg {
   }
 
   static getQuadraticBezier(x1: number, y1: number, x2: number, y2: number) {}
+}
 
-  static createElement(option: SVGElementOption) {
-    const { label } = option;
-    const element = document.createElement(label);
-    const entries = Object.entries(option);
-    entries.forEach(entry => {
-      const [name, value] = entry;
-      element.setAttribute(name, value);
-    });
+class Element {
+  path: string;
 
-    return element;
+  constructor() {}
+
+  lineTo(x: number, y: number) {
+    this.path = ''.concat(this.path, `M ${x}, ${y}`);
   }
 }
 
-export { SVGElementOption };
+export default Svg;
+
+export { Element };
