@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .canvas {
+        width: 640px;
+        height: 640px;
+
+        box-shadow: 0px 0px 10px 0px #bbbbbb;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="canvas"></canvas>
+
+    <script>
+      function rotate(x, y, angle) {
+        if (!angle || angle % (Math.PI * 2) === 0) {
+          return;
+        }
+        var cos = Math.cos(angle);
+        var sin = Math.sin(angle);
+
+        console.log(x * cos - 0 * sin, y);
+
+        return [x * cos - 0 * sin, y];
+      }
+
+      const canvas = document.querySelector('.canvas');
+
+      let width = (canvas.width = 640);
+      let height = (canvas.height = 640);
+
+      const context = canvas.getContext('2d');
+
+      const translate = 90;
+      let angle = 0;
+
+      function animation() {
+        context.clearRect(0, 0, width, height);
+
+        angle += 0.03;
+
+        context.beginPath();
+        context.fillStyle = '#a44617';
+        context.lineWidth = 10;
+        // context.lineCap = 'round';
+
+        context.moveTo(...rotate(10 + translate, 10 + translate, angle));
+        context.lineTo(...rotate(100 + translate, 10 + translate, angle));
+        context.lineTo(...rotate(100 + translate, 100 + translate, angle));
+        context.lineTo(...rotate(10 + translate, 100 + translate, angle));
+        // context.lineTo(...rotate(10 + translate, 10 + translate, angle));
+
+        context.fill();
+        context.closePath();
+
+        // requestAnimationFrame(animation);
+      }
+
+      animation();
+    </script>
+  </body>
+</html>
