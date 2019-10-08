@@ -94,6 +94,14 @@ class Element {
   curve(path: string) {
     this.path = ''.concat(this.path, ' ', path);
   }
+
+  toXml() {
+    return Svg.createElement('path', {
+      d: this.path,
+      stroke: 'black',
+      'stroke-width': '1',
+    });
+  }
 }
 
 export default Svg;
