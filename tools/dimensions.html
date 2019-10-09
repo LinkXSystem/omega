@@ -9,18 +9,20 @@
       href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
     <style>
       html,
-      body,
-      * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
+      body {
+        height: 100%;
       }
 
       body {
-        background: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+
         overflow: hidden;
+
+        background: #f5f5f5;
       }
 
       .header {
@@ -37,6 +39,29 @@
 
       .dimension {
         display: flex;
+        font-family: 2em;
+      }
+
+      .dimension .dimension-input {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .dimension .dimension-input + .dimension-input {
+        margin-left: 1em;
+      }
+
+      .dimension input {
+        border: 1px solid rgba(0, 122, 204, 0.8);
+        height: 2.5em;
+        border-radius: 1.25em;
+        padding: 1em;
+        outline: 0em;
+      }
+
+      .dimension-input i + input {
+        margin-left: 1em;
       }
 
       .submit {
@@ -55,17 +80,232 @@
 
         background: rgba(0, 122, 204, 0.8);
       }
+
+      .section {
+        flex: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        overflow: hidden;
+
+        width: 842px;
+        height: 595px;
+
+        box-shadow: 0px 0px 10px 0px rgba(30, 30, 30, 0.8);
+      }
     </style>
   </head>
   <body>
     <header class="header">
       <div class="dimension">
-        <div>W: <input type="text" /></div>
-        <div>H: <input type="text" /></div>
+        <div class="dimension-input">
+          <i class="linksystem-iconfront">
+            <svg
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="6160"
+              width="16"
+              height="16"
+            >
+              <path
+                d="M790.229333 277.333333l-97.834666-97.834666 30.208-30.165334 30.165333 30.165334 90.496 90.496a42.666667 42.666667 0 0 1 0 60.373333l-90.496 90.496-30.165333 30.165333-30.208-30.165333L793.258667 320H233.813333l100.864 100.864-30.165333 30.165333-30.208-30.165333-90.453333-90.496a42.666667 42.666667 0 0 1 0-60.373333l90.453333-90.453334 30.208-30.208 30.165333 30.165334L236.8 277.333333H790.186667zM85.333333 682.666667h853.333334a85.333333 85.333333 0 0 1 85.333333 85.333333v170.666667a85.333333 85.333333 0 0 1-85.333333 85.333333H85.333333a85.333333 85.333333 0 0 1-85.333333-85.333333v-170.666667a85.333333 85.333333 0 0 1 85.333333-85.333333z m0 85.333333v170.666667h853.333334v-170.666667H85.333333z m85.333334 0h42.666666v85.333333H170.666667v-85.333333z m128 0h42.666666v42.666667H298.666667v-42.666667z m128 0h42.666666v42.666667h-42.666666v-42.666667z m128 0h42.666666v85.333333h-42.666666v-85.333333z m128 0h42.666666v42.666667h-42.666666v-42.666667z m128 0h42.666666v42.666667h-42.666666v-42.666667zM106.666667 0a21.333333 21.333333 0 0 1 21.333333 21.333333v554.666667a21.333333 21.333333 0 1 1-42.666667 0V21.333333a21.333333 21.333333 0 0 1 21.333334-21.333333z m810.666666 0a21.333333 21.333333 0 0 1 21.333334 21.333333v554.666667a21.333333 21.333333 0 1 1-42.666667 0V21.333333a21.333333 21.333333 0 0 1 21.333333-21.333333z"
+                fill=""
+                p-id="6161"
+              ></path>
+            </svg>
+          </i>
+          <input type="text" />
+        </div>
+        <div class="dimension-input">
+          <i class="linksystem-iconfront">
+            <svg
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="9360"
+              width="16"
+              height="16"
+            >
+              <path
+                d="M256 0H85.333333a85.333333 85.333333 0 0 0-85.333333 85.333333v853.333334a85.333333 85.333333 0 0 0 85.333333 85.333333h170.666667a85.333333 85.333333 0 0 0 85.333333-85.333333V85.333333a85.333333 85.333333 0 0 0-85.333333-85.333333z m0 170.666667H170.666667v42.666666h85.333333v85.333334H213.333333v42.666666h42.666667v85.333334H213.333333v42.666666h42.666667v85.333334H170.666667v42.666666h85.333333v85.333334H213.333333v42.666666h42.666667v85.333334H213.333333v42.666666h42.666667v85.333334H85.333333V85.333333h170.666667v85.333334zM448 128h554.666667a21.333333 21.333333 0 0 0 0-42.666667h-554.666667a21.333333 21.333333 0 0 0 0 42.666667zM1002.666667 896h-554.666667a21.333333 21.333333 0 0 0 0 42.666667h554.666667a21.333333 21.333333 0 0 0 0-42.666667zM847.488 334.634667l30.208-30.165334-30.208-30.208-90.496-90.496a42.624 42.624 0 0 0-60.330667 0l-90.496 90.496-30.165333 30.208 30.165333 30.165334L704 236.757333v551.338667l-97.834667-97.877333-30.165333 30.250666 30.165333 30.165334 90.496 90.496a42.624 42.624 0 0 0 60.330667 0l90.496-90.496 30.208-30.165334-30.208-30.208-100.821333 100.864V233.770667l100.821333 100.864z m-120.661333 476.330666L726.528 810.666667h0.597333l-0.298666 0.298666z"
+                fill="#2c2c2c"
+                p-id="9361"
+              ></path>
+            </svg>
+          </i>
+          <input type="text" />
+        </div>
       </div>
       <div class="submit">
         <i class="material-icons">code</i>
       </div>
     </header>
+    <section class="section">
+      <div class="container"></div>
+    </section>
+    <script>
+      class Projector {
+        constructor(context, width, height) {
+          const canvas = document.createElement('canvas');
+
+          this.canvas = canvas;
+          this.width = canvas.width = width;
+          this.height = canvas.height = height;
+
+          this.context = context;
+        }
+
+        setContainer(container) {
+          this.container = container;
+        }
+      }
+    </script>
+    <script>
+      const container = document.querySelector('.container');
+
+      class Vector {
+        constructor(x, y, z) {
+          this.x = x;
+          this.y = y;
+          this.z = z;
+        }
+
+        set(axis) {
+          const { x, y, z } = axis;
+          this.x = x || this.x;
+          this.y = y || this.y;
+          this.z = z || this.z;
+        }
+      }
+
+      class CanvasRenderer {
+        static inject(options) {
+          return new CanvasRenderer(options);
+        }
+
+        constructor(options) {
+          const { width, height, container } = options;
+
+          const canvas = document.createElement('canvas');
+          this.canvas = canvas;
+          this.width = canvas.width = width;
+          this.height = canvas.height = height;
+
+          this.context = canvas.getContext('2d');
+
+          this.onmousedown = this.onmousedown.bind(this);
+          this.onmouseup = this.onmouseup.bind(this);
+          this.onmouseout = this.onmouseout.bind(this);
+          this.onmousemove = this.onmousemove.bind(this);
+
+          this.handleEventInitial(container, canvas);
+        }
+
+        handleEventInitial(container, canvas) {
+          this.container = container;
+          container.appendChild(canvas);
+
+          const rect = container.getBoundingClientRect();
+          this.border = {
+            x: canvas.width - rect.width,
+            y: canvas.height - rect.height
+          };
+
+          this.origin = {
+            x: 0,
+            y: 0
+          };
+
+          this.container.addEventListener('mousedown', this.onmousedown);
+          this.container.addEventListener('mouseup', this.onmouseup);
+          this.container.addEventListener('mouseout', this.onmouseout);
+        }
+
+        onmousedown(event) {
+          const { clientX, clientY } = event;
+          this.contrast = {
+            x: clientX,
+            y: clientY
+          };
+          this.container.style.cursor = 'grabbing';
+          this.container.addEventListener('mousemove', this.onmousemove);
+        }
+
+        onmouseup() {
+          this.container.style.cursor = 'default';
+          this.container.removeEventListener('mousemove', this.onmousemove);
+        }
+
+        onmouseout() {
+          this.container.style.cursor = 'default';
+          this.container.removeEventListener('mousemove', this.onmousemove);
+        }
+
+        onmousemove(event) {
+          const { clientX, clientY } = event;
+          const { contrast, origin, border } = this;
+
+          let temp = this.origin;
+
+          let x =
+            event.clientX - contrast.x > 0
+              ? origin.x + Math.abs(event.clientX - contrast.x)
+              : origin.x - Math.abs(event.clientX - contrast.x);
+
+          if (x >= -border.x && x <= 0) {
+            temp = Object.assign({}, temp, {
+              x
+            });
+          }
+
+          let y =
+            event.clientY - contrast.y > 0
+              ? origin.y + Math.abs(event.clientY - contrast.y)
+              : origin.y - Math.abs(event.clientY - contrast.y);
+
+          if (y >= -border.y && y <= 0) {
+            temp = Object.assign({}, temp, {
+              y
+            });
+          }
+
+          this.canvas.style.transform = `translate(${temp.x}px, ${temp.y}px)`;
+
+          this.contrast = {
+            x: clientX,
+            y: clientY
+          };
+
+          this.origin = Object.assign({}, temp);
+        }
+
+        render() {
+          const { context, width, height } = this;
+          context.clearRect(0, 0, width, height);
+
+          const image = new Image();
+          image.src = './assets/image/background.jpg';
+
+          image.onload = () => {
+            context.drawImage(image, 0, 0);
+          };
+        }
+      }
+
+      const renderer = new CanvasRenderer({
+        width: 1024,
+        height: 768,
+        container
+      });
+
+      renderer.render();
+    </script>
   </body>
 </html>
