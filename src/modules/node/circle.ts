@@ -4,8 +4,12 @@ import Listener from '../../lib/listener';
 import StyleSheet from '../../lib/stylesheet';
 
 class Circle extends Node {
-  constructor(workspace: Workspace, type: string = 'circle') {
-    super(workspace, type);
+  diameter: number;
+
+  constructor(workspace: Workspace, diameter: number) {
+    super(workspace, 'circle');
+
+    this.diameter = diameter;
   }
 
   render() {
