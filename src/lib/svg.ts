@@ -1,14 +1,14 @@
 class Svg {
   static Namespace: string = 'http://www.w3.org/2000/svg';
 
-  static createElement(name: string, attributes: Object) {
+  static createElement(name: string, attributes: Object): SVGElement {
     const element = document.createElementNS(Svg.Namespace, name);
     Object.entries(attributes).forEach(attribute => {
       const [name, value] = attribute;
       element.setAttribute(name, value);
     });
 
-    return element;
+    return <SVGAElement>element;
   }
 
   static setCubicBezierScale(offset: number, scale: number = 1.5) {
@@ -32,6 +32,7 @@ class Svg {
 }
 
 class Element {
+  node: SVGElement;
   path: string;
 
   constructor(path: string = '') {
@@ -44,34 +45,45 @@ class Element {
 
   setPath(path: string) {
     this.path = path;
+    return this;
   }
 
   lineTo(x: number, y: number, absolute: Boolean = false) {
     const temp = absolute ? `L ${x}, ${y}` : `l ${x}, ${y}`;
 
     this.path = ''.concat(this.path, ' ', temp);
+
+    return this;
   }
 
   moveTo(x: number, y: number, absolute: Boolean = true) {
     const temp = absolute ? `M ${x}, ${y}` : `m ${x}, ${y}`;
 
     this.path = ''.concat(this.path, ' ', temp);
+
+    return this;
   }
 
   vertical(height: number, absolute: Boolean = false) {
     const temp = absolute ? `V ${height}` : `v ${height}`;
 
     this.path = ''.concat(this.path, ' ', temp);
+
+    return this;
   }
 
   horizontal(width: number, absolute: Boolean = false) {
     const temp = absolute ? `V ${width}` : `v ${width}`;
 
     this.path = ''.concat(this.path, ' ', temp);
+
+    return this;
   }
 
   close() {
     this.path = ''.concat(this.path, ' ', 'Z');
+
+    return this;
   }
 
   arc(
@@ -89,18 +101,35 @@ class Element {
       : `a ${rx} ${ry} ${angle} ${large} ${sweep} ${x} ${y}`;
 
     this.path = ''.concat(this.path, ' ', temp);
+
+    return this;
   }
 
   curve(path: string) {
     this.path = ''.concat(this.path, ' ', path);
+
+    return this;
+  }
+
+  update() {
+    const { path, node } = this;
+    node.setAttribute('d', path);
+  }
+
+  toString() {
+    return this.path;
   }
 
   toXml() {
-    return Svg.createElement('path', {
-      d: this.path,
-      stroke: 'black',
-      'stroke-width': '1',
-    });
+    if (!Boolean(this.node)) {
+      this.node = Svg.createElement('path', {
+        d: this.path,
+        stroke: 'black',
+        'stroke-width': '1',
+      });
+    }
+
+    return this.node;
   }
 }
 

@@ -7,4 +7,9 @@ const MouseEvent = {
   MOUSELEAVE: 'mouseleave',
 };
 
-export { MouseEvent };
+const ZIndex = {
+  CANVAS: -1000,
+  SVG: -1,
+};
+
+export { MouseEvent, ZIndex };
