@@ -25,13 +25,13 @@
     <omega-input-field></omega-input-field>
     <script>
       const workspace = new Omega.Workspace(
-        document.getElementById("container")
+        document.getElementById('container'),
       );
 
-      const circle = new Omega.Circle(workspace);
-      circle.render();
-
-      console.log(circle);
+      new Array(2).fill('').forEach(() => {
+        const circle = new Omega.Circle(workspace);
+        circle.render();
+      });
     </script>
   </body>
 </html>
