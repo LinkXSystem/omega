@@ -22,7 +22,7 @@ class Workspace {
     this.container = container;
 
     this.emitter = new EventEmitter();
-    this.runtime = new Runtime(this.emitter);
+    this.runtime = new Runtime(this);
 
     this.width = width || window.innerWidth;
     this.height = height || window.innerHeight;

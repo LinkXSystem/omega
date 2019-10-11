@@ -1,6 +1,10 @@
+import Renderer from '../interface';
+
 import { Shape, Background } from '../../shape';
 
-class CanvasRenderer {
+import { ZIndex } from '../../../constants';
+
+class CanvasRenderer implements Renderer {
   canvas: HTMLCanvasElement;
   width: number;
   height: number;
@@ -14,7 +18,7 @@ class CanvasRenderer {
 
     const canvas = document.createElement('canvas');
     canvas.style.position = 'absolute';
-    canvas.style.zIndex = '-1';
+    canvas.style.zIndex = ZIndex.CANVAS.toString();
 
     this.width = canvas.width = width;
     this.height = canvas.height = height;

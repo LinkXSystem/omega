@@ -1,7 +1,10 @@
-import Svg, { Element } from '../../../lib/svg';
+import Renderer from '../interface';
 
-class SvgRenderer {
-  canvas: HTMLElement;
+import Svg from '../../../lib/svg';
+import { ZIndex } from '../../../constants';
+
+class SvgRenderer implements Renderer {
+  canvas: SVGElement;
   width: number;
   height: number;
 
@@ -13,8 +16,10 @@ class SvgRenderer {
       height,
       viewBox: `0, 0, ${width}, ${height}`,
       xmlns: Svg.Namespace,
+      style: `position: absolute; z-index: ${ZIndex.SVG}`,
     });
 
+    this.canvas = canvas;
     this.width = width;
     this.height = height;
 
@@ -25,6 +30,11 @@ class SvgRenderer {
     const { width, height } = container.getBoundingClientRect();
     this.width = width;
     this.height = height;
+  }
+
+  render(element: Element) {
+    // debugger;
+    this.canvas.appendChild(element);
   }
 }
 
