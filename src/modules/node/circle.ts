@@ -1,6 +1,5 @@
 import Node from './node';
 import { Workspace } from '../workspace';
-import Listener from '../../lib/listener';
 import StyleSheet from '../../lib/stylesheet';
 
 class Circle extends Node {
@@ -12,8 +11,8 @@ class Circle extends Node {
     this.diameter = diameter;
   }
 
-  render() {
-    const options = {
+  setStyleSheet() {
+    const style = {
       position: 'absolute',
       width: '100px',
       height: '100px',
@@ -22,12 +21,12 @@ class Circle extends Node {
       boxShadow: '0 0 10px #b2b2b2',
     };
 
-    StyleSheet.compose(
-      this.element,
-      options,
-    );
+    const { element } = this;
 
-    this.setRect();
+    StyleSheet.compose(
+      element,
+      style,
+    );
   }
 }
 

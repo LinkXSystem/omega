@@ -5,6 +5,7 @@ import { Point } from '../common';
 
 import Listener from '../../lib/listener';
 import UUID from '../../lib/uuid';
+import StyleSheet from '../../lib/stylesheet';
 
 import { Connector, InputConnector } from '../connector';
 
@@ -25,31 +26,31 @@ abstract class Node implements NodeInterface {
     this.type = type;
     this.workspace = workspace;
 
-    this.onClick = this.onClick.bind(this);
     this.onDraggableStart = this.onDraggableStart.bind(this);
     this.onDrag = this.onDrag.bind(this);
     this.onDraggableFinish = this.onDraggableFinish.bind(this);
+    this.onClick = this.onClick.bind(this);
 
-    this.mount();
+    this.created();
   }
 
-  mount() {
-    const { container } = this.workspace;
-
+  created() {
     this.element = document.createElement('div');
     this.element.dataset['type'] = this.type;
     this.element.dataset['uuid'] = this.uuid;
 
-    container.appendChild(this.element);
-
-    this.setRect();
-
     Listener.bind(this.element, 'mousedown', this.onDraggableStart);
     Listener.bind(this.element, 'mouseup', this.onDraggableFinish);
+    Listener.bind(this.element, 'mouseover', this.onDraggableFinish);
+    Listener.bind(this.element, 'mouseleave', this.onDraggableFinish);
     Listener.bind(this.element, 'click', this.onClick);
   }
 
-  setRect() {
+  mounted() {
+    console.warn('It is mount of stage in node !!!');
+  }
+
+  setShapeInfos() {
     this.rect = this.element.getBoundingClientRect();
 
     const { x, y, width, height } = this.rect as DOMRect;
@@ -58,6 +59,25 @@ abstract class Node implements NodeInterface {
       x: x + width / 2,
       y: y + height / 2,
     };
+  }
+
+  setStyleSheet() {
+    console.warn('please rewrite the method !!!');
+  }
+
+  setPosition(x: number, y: number) {
+    const { element } = this;
+    this.coordinate = {
+      x,
+      y,
+    };
+    StyleSheet.compose(
+      element,
+      {
+        left: `${x}px`,
+        top: `${y}px`,
+      },
+    );
   }
 
   onClick() {
@@ -96,7 +116,20 @@ abstract class Node implements NodeInterface {
   }
 
   render() {
-    console.warn('please rewrite the method !!!');
+    const { container } = this.workspace;
+    container.appendChild(this.element);
+
+    this.setStyleSheet();
+    this.setShapeInfos();
+
+    this.mounted();
+  }
+
+  destroy(callback: Function) {
+    const { container } = this.workspace;
+    container.removeChild(this.element);
+
+    callback();
   }
 }
 
