@@ -7,6 +7,14 @@ class StyleSheet {
       element.style[name as any] = value;
     });
   }
+
+  static convert(style: Object) {
+    const temp = style;
+    /**
+     * convert some property !
+     */
+    return temp;
+  }
 }
 
 export default StyleSheet;
