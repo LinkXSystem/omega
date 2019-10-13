@@ -3,6 +3,7 @@ import EventEmitter from '../../engine/eventemitter';
 import Runtime from '../../engine/runtime';
 
 import { CanvasRenderer, SvgRenderer } from '../renderer';
+import { Node } from '../node';
 
 import { MouseEvent } from '../../constants';
 
@@ -17,6 +18,8 @@ class Workspace {
 
   renderer: CanvasRenderer;
   auxiliary: SvgRenderer;
+
+  nodes: Array<Node>;
 
   constructor(container: HTMLElement, width?: number, height?: number) {
     this.container = container;
@@ -67,7 +70,15 @@ class Workspace {
     renderer.resize(container);
   }
 
-  render() {}
+  setNode(node: Node) {
+    this.nodes.push(node);
+    this.render();
+  }
+
+  render() {
+    const { nodes } = this;
+    nodes.forEach(node => node.render());
+  }
 }
 
 export default Workspace;
