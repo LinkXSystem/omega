@@ -16,7 +16,7 @@ class SvgRenderer implements Renderer {
       height,
       viewBox: `0, 0, ${width}, ${height}`,
       xmlns: Svg.Namespace,
-      style: `position: absolute; z-index: ${ZIndex.SVG}`,
+      style: `position: absolute; z-index: ${ZIndex.SVG}`
     });
 
     this.canvas = canvas;
@@ -32,10 +32,7 @@ class SvgRenderer implements Renderer {
     this.height = height;
   }
 
-  render(element: Element) {
-    // debugger;
-    this.canvas.appendChild(element);
-  }
+  render() {}
 }
 
 export default SvgRenderer;

@@ -16,8 +16,7 @@ class Workspace {
   emitter: EventEmitter;
   runtime: Runtime;
 
-  renderer: CanvasRenderer;
-  auxiliary: SvgRenderer;
+  renderer: SvgRenderer;
 
   nodes: Array<Node>;
 
@@ -40,8 +39,7 @@ class Workspace {
     container.style.width = `${width}px`;
     container.style.height = `${height}px`;
 
-    this.renderer = new CanvasRenderer(container);
-    this.auxiliary = new SvgRenderer(container);
+    this.renderer = new SvgRenderer(container);
 
     this.renderer.render();
   }
@@ -72,7 +70,6 @@ class Workspace {
 
   setNode(node: Node) {
     this.nodes.push(node);
-    this.render();
   }
 
   render() {
