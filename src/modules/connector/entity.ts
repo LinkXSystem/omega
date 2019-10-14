@@ -1,14 +1,18 @@
 import Svg, { Element } from '../../lib/svg';
+import UUID from '../../lib/uuid';
 import { Connector } from './interface';
 
 class InputConnector implements Connector {
   element: Element;
 
+  uuid: string;
   x: number;
   y: number;
   connector: OutputConnector;
 
   constructor(x: number, y: number) {
+    this.uuid = UUID.generate();
+
     this.x = x;
     this.y = y;
 
@@ -17,6 +21,10 @@ class InputConnector implements Connector {
 
   setConnector(connector: OutputConnector) {
     this.connector = connector;
+  }
+
+  getElement() {
+    return this.element;
   }
 
   setElement(element: Element) {
@@ -34,12 +42,14 @@ class InputConnector implements Connector {
 class OutputConnector implements Connector {
   element: Element;
 
+  uuid: string;
   x: number;
   y: number;
 
   connector: InputConnector;
 
   constructor(x: number, y: number) {
+    this.uuid = UUID.generate();
     this.x = x;
     this.y = y;
   }
@@ -48,16 +58,20 @@ class OutputConnector implements Connector {
     this.connector = connector;
   }
 
+  getElement() {
+    return this.element;
+  }
+
+  setElement(element: Element) {
+    this.element = element;
+  }
+
   refresh(x: number, y: number) {
     const { connector } = this;
     this.x = x;
     this.y = y;
     const curve = Svg.getCubicBezier(x, y, connector.x, connector.y);
     this.element.setPath(curve).update();
-  }
-
-  setElement(element: Element) {
-    this.element = element;
   }
 }
 
