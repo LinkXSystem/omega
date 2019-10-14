@@ -7,7 +7,7 @@ import Listener from '../../lib/listener';
 import UUID from '../../lib/uuid';
 import StyleSheet from '../../lib/stylesheet';
 
-import { Connector, InputConnector } from '../connector';
+import { Connector } from '../connector';
 
 abstract class Node implements NodeInterface {
   uuid: string;
@@ -18,11 +18,14 @@ abstract class Node implements NodeInterface {
   coordinate: Point;
   workspace: Workspace;
 
-  connector: Connector;
+  isDraggable: boolean;
+
+  connectors: Array<Connector>;
 
   constructor(workspace: Workspace, type: string) {
     this.uuid = UUID.generate();
 
+    this.isDraggable = false;
     this.type = type;
     this.workspace = workspace;
 
@@ -55,6 +58,8 @@ abstract class Node implements NodeInterface {
 
     const { x, y, width, height } = this.rect as DOMRect;
 
+    console.log(this.rect);
+
     this.coordinate = {
       x: x + width / 2,
       y: y + height / 2,
@@ -63,6 +68,10 @@ abstract class Node implements NodeInterface {
 
   setStyleSheet() {
     console.warn('please rewrite the method !!!');
+  }
+
+  getPosition() {
+    return this.coordinate;
   }
 
   setPosition(x: number, y: number) {
@@ -80,16 +89,29 @@ abstract class Node implements NodeInterface {
     );
   }
 
+  setConnector(connector: Connector) {
+    if (!this.connectors) {
+      this.connectors = [];
+    }
+    this.connectors.push(connector);
+  }
+
+  delConnector(connector: Connector) {
+    if (!this.connectors) return;
+    this.connectors = this.connectors.filter(
+      item => item.uuid !== connector.uuid,
+    );
+  }
+
   onClick() {
+    if (this.isDraggable) {
+      this.isDraggable = false;
+      return;
+    }
+
     const { emitter } = this.workspace;
-
-    const { x, y } = this.coordinate;
-
-    this.connector = new InputConnector(x, y);
-
     emitter.emit('node:connect', {
-      uuid: this.uuid,
-      connector: this.connector,
+      node: this,
     });
   }
 
@@ -100,6 +122,8 @@ abstract class Node implements NodeInterface {
   onDrag(event: MouseEvent) {
     const { width, height } = this.rect;
     const { x, y } = event;
+
+    this.isDraggable = true;
 
     this.coordinate = {
       x: x - width / 2,
