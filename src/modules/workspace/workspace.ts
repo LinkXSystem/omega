@@ -40,8 +40,6 @@ class Workspace {
     container.style.height = `${height}px`;
 
     this.renderer = new SvgRenderer(container);
-
-    this.renderer.render();
   }
 
   listener() {

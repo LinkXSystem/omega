@@ -66,6 +66,8 @@ class CanvasRenderer implements Renderer {
 
     requestAnimationFrame(this.render.bind(this));
   }
+
+  remove() {}
 }
 
 export default CanvasRenderer;

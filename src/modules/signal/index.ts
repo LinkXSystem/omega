@@ -1,5 +1,7 @@
-interface ConnectSignal {
+import { Node } from '../node';
+
+interface ConnectSignalInterface {
   node: Node;
 }
 
-export { ConnectSignal };
+export { ConnectSignalInterface };

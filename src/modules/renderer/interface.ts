@@ -4,6 +4,7 @@ interface Renderer {
   height: number;
 
   render: Function;
+  remove: Function;
 }
 
 export default Renderer;

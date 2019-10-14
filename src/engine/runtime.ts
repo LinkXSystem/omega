@@ -1,13 +1,14 @@
 import {
   Connector,
+  InputConnector,
   OutputConnector,
   ConnectorUtils,
 } from '../modules/connector';
-import { ConnectSignalInterface } from '../modules/node';
 import EventEmitter from './eventemitter';
 
 import { MouseEvent } from '../constants';
 import { Workspace } from '../modules/workspace';
+import { ConnectSignalInterface } from '../modules/signal';
 
 class Runtime {
   output: Connector;
@@ -27,8 +28,11 @@ class Runtime {
 
   register() {
     this.emitter.on('node:connect', (data: ConnectSignalInterface) => {
+      const { node } = data;
       if (!Boolean(this.input)) {
-        this.input = data.connector;
+        const { x, y } = node.getPosition();
+        this.input = new InputConnector(x, y);
+        node.setConnector(this.input);
       }
     });
 
@@ -40,12 +44,20 @@ class Runtime {
         ConnectorUtils.compose(
           this.input,
           this.output,
-          this.workspace.auxiliary,
+          this.workspace.renderer,
         );
       }
 
       if (this.output) {
         this.output.refresh(x, y);
+      }
+    });
+
+    this.emitter.on(MouseEvent.MOUSEDOWN, (event: MouseEvent) => {
+      if (Boolean(this.input) && Boolean(this.output)) {
+        const element = this.input.getElement();
+        this.workspace.renderer.remove(element.toXml());
+        this.input = this.output = null;
       }
     });
   }
