@@ -1,13 +1,12 @@
 import { Element } from '../../lib/svg';
 
 interface Connector {
-  // element: Element;
+  element: Element;
 
   uuid: string;
-
-  // x: number;
-  // y: number;
-  // connector: Connector;
+  x: number;
+  y: number;
+  connector: Connector;
 
   refresh: Function;
   setConnector: Function;
