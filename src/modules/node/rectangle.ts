@@ -31,8 +31,6 @@ class Rectangle extends Node {
       boxShadow: '0 0 10px #b2b2b2',
     };
 
-    console.log(style);
-
     const { element } = this;
     StyleSheet.compose(
       element,

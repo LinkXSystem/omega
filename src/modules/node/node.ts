@@ -56,11 +56,13 @@ abstract class Node implements NodeInterface {
   setShapeInfos() {
     this.rect = this.element.getBoundingClientRect();
 
+    console.warn(this.rect);
+
     const { x, y, width, height } = this.rect as DOMRect;
 
     this.coordinate = {
       x: x + width / 2,
-      y: y + height / 2
+      y: y + height / 2,
     };
   }
 
@@ -76,14 +78,14 @@ abstract class Node implements NodeInterface {
     const { element } = this;
     this.coordinate = {
       x,
-      y
+      y,
     };
     StyleSheet.compose(
       element,
       {
         left: `${x}px`,
-        top: `${y}px`
-      }
+        top: `${y}px`,
+      },
     );
   }
 
@@ -97,13 +99,14 @@ abstract class Node implements NodeInterface {
   delConnector(connector: Connector) {
     if (!this.connectors) return;
     this.connectors = this.connectors.filter(
-      item => item.uuid !== connector.uuid
+      item => item.uuid !== connector.uuid,
     );
   }
 
-  onClick() {
-    // event.preventDefault()
+  onClick(event: MouseEvent) {
     event.stopPropagation();
+
+    console.warn('dalax');
 
     if (this.isDraggable) {
       this.isDraggable = false;
@@ -112,15 +115,19 @@ abstract class Node implements NodeInterface {
 
     const { emitter } = this.workspace;
     emitter.emit('node:connect', {
-      node: this
+      node: this,
     });
   }
 
   onDraggableStart(event: MouseEvent) {
+    event.stopPropagation();
+
     Listener.bind(this.element, 'mousemove', this.onDrag);
   }
 
   onDrag(event: MouseEvent) {
+    event.stopPropagation();
+
     const { width, height } = this.rect;
     const { x, y } = event;
 
@@ -128,7 +135,7 @@ abstract class Node implements NodeInterface {
 
     this.coordinate = {
       x,
-      y
+      y,
     };
 
     StyleSheet.compose(
@@ -136,12 +143,14 @@ abstract class Node implements NodeInterface {
       {
         position: 'absolute',
         top: `${y - height / 2}px`,
-        left: `${x - width / 2}px`
-      }
+        left: `${x - width / 2}px`,
+      },
     );
   }
 
   onDraggableFinish(event: MouseEvent) {
+    event.stopPropagation();
+
     Listener.unbind(this.element, 'mousemove', this.onDrag);
   }
 
