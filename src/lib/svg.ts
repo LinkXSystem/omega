@@ -34,9 +34,11 @@ class Svg {
 class Element {
   node: SVGElement;
   path: string;
+  fill: string;
 
-  constructor(path: string = '') {
+  constructor(path: string = '', fill = 'none') {
     this.path = path;
+    this.fill = fill;
   }
 
   getPath() {
@@ -125,6 +127,7 @@ class Element {
       this.node = Svg.createElement('path', {
         d: this.path,
         stroke: 'black',
+        fill: this.fill,
         'stroke-width': '1',
       });
     }
