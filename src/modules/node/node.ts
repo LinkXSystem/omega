@@ -58,11 +58,9 @@ abstract class Node implements NodeInterface {
 
     const { x, y, width, height } = this.rect as DOMRect;
 
-    console.log(this.rect);
-
     this.coordinate = {
       x: x + width / 2,
-      y: y + height / 2,
+      y: y + height / 2
     };
   }
 
@@ -78,14 +76,14 @@ abstract class Node implements NodeInterface {
     const { element } = this;
     this.coordinate = {
       x,
-      y,
+      y
     };
     StyleSheet.compose(
       element,
       {
         left: `${x}px`,
-        top: `${y}px`,
-      },
+        top: `${y}px`
+      }
     );
   }
 
@@ -99,11 +97,14 @@ abstract class Node implements NodeInterface {
   delConnector(connector: Connector) {
     if (!this.connectors) return;
     this.connectors = this.connectors.filter(
-      item => item.uuid !== connector.uuid,
+      item => item.uuid !== connector.uuid
     );
   }
 
   onClick() {
+    // event.preventDefault()
+    event.stopPropagation();
+
     if (this.isDraggable) {
       this.isDraggable = false;
       return;
@@ -111,7 +112,7 @@ abstract class Node implements NodeInterface {
 
     const { emitter } = this.workspace;
     emitter.emit('node:connect', {
-      node: this,
+      node: this
     });
   }
 
@@ -126,13 +127,18 @@ abstract class Node implements NodeInterface {
     this.isDraggable = true;
 
     this.coordinate = {
-      x: x - width / 2,
-      y: y - height / 2,
+      x,
+      y
     };
 
-    this.element.style.position = 'absolute';
-    this.element.style.left = `${this.coordinate.x}px`;
-    this.element.style.top = `${this.coordinate.y}px`;
+    StyleSheet.compose(
+      this.element,
+      {
+        position: 'absolute',
+        top: `${y - height / 2}px`,
+        left: `${x - width / 2}px`
+      }
+    );
   }
 
   onDraggableFinish(event: MouseEvent) {
