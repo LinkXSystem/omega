@@ -24,13 +24,17 @@
     <div id="container"></div>
     <omega-input-field></omega-input-field>
     <script>
-      const workspace = new Omega.Workspace(
-        document.getElementById('container'),
-      );
+      const container = document.getElementById('container');
+      const workspace = new Omega.Workspace(container);
+
+      const { width, height } = container.getBoundingClientRect();
 
       new Array(2).fill('').forEach(() => {
+        const x = Math.floor(Math.random() * width);
+        const y = Math.floor(Math.random() * width);
         const circle = new Omega.Circle(workspace);
         circle.render();
+        circle.setPosition(x, y);
       });
 
       const rectangle = new Omega.Rectangle(workspace, 200, 100, 4);
