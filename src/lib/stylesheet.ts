@@ -1,4 +1,6 @@
 class StyleSheet {
+  static NumberOfStyle = ['width', 'height', 'top', 'left', 'right', 'bottom'];
+
   static compose(element: HTMLElement, style: Object) {
     const entries = Object.entries(style);
     entries.forEach(entry => {
@@ -8,11 +10,22 @@ class StyleSheet {
     });
   }
 
-  static convert(style: Object) {
-    const temp = style;
-    /**
-     * convert some property !
-     */
+  static convert(style: Object, unit = 'px') {
+    const entries = Object.entries(style);
+    let temp = Object.create(null);
+
+    entries.forEach(entry => {
+      let [name, value] = entry;
+      if (
+        StyleSheet.NumberOfStyle.includes(name) &&
+        typeof value === 'number'
+      ) {
+        value = `${value}${unit}`;
+      }
+
+      temp[name as any] = value;
+    });
+
     return temp;
   }
 }
