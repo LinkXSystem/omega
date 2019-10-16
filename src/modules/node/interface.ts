@@ -14,6 +14,9 @@ interface NodeInterface {
   getPosition: Function;
   setPosition: Function;
 
+  getShapeInfos: Function;
+  setShapeInfos: Function;
+
   render: Function;
 }
 

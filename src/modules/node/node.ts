@@ -9,6 +9,8 @@ import StyleSheet from '../../lib/stylesheet';
 
 import { Connector } from '../connector';
 
+import { Auxiliary } from '../auxiliary';
+
 abstract class Node implements NodeInterface {
   uuid: string;
   type: string;
@@ -21,6 +23,8 @@ abstract class Node implements NodeInterface {
   isDraggable: boolean;
 
   connectors: Array<Connector>;
+
+  auxiliary: Auxiliary;
 
   constructor(workspace: Workspace, type: string) {
     this.uuid = UUID.generate();
@@ -51,6 +55,10 @@ abstract class Node implements NodeInterface {
 
   mounted() {
     console.warn('It is mount of stage in node !!!');
+  }
+
+  getShapeInfos() {
+    return this.rect;
   }
 
   setShapeInfos() {
@@ -162,6 +170,10 @@ abstract class Node implements NodeInterface {
     this.setShapeInfos();
 
     this.mounted();
+
+    if (this.auxiliary) {
+      this.auxiliary.setDisabled(true);
+    }
   }
 
   destroy(callback: Function) {
