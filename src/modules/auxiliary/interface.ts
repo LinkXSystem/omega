@@ -1,7 +1,11 @@
-import Point from '../common/point';
+import Anchor from './anchor';
 
 interface Auxiliary {
-  points: Array<Point>;
+  anchors: Array<Anchor>;
+
+  setDisabled: Function;
+
+  render: Function;
 }
 
 export default Auxiliary;
