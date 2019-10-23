@@ -1,3 +1,4 @@
-import Coordinate from './entity';
+import CartesianCoordinate from './cartesian';
+import PolarCoordinate from './polar';
 
-export { Coordinate };
+export { CartesianCoordinate, PolarCoordinate };
