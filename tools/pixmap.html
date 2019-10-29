@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <style>
+      :root {
+        --global-border-radius: 2px;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        background: #2c3e50;
+      }
+
+      .toolbox {
+        width: 120px;
+        padding: 10px;
+      }
+
+      .toolbox .stroke {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        width: calc(100% - 15px);
+
+        margin-left: 5px;
+        margin-bottom: 10px;
+      }
+
+      .toolbox .stroke .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 25px;
+        height: 25px;
+
+        background: #7f8c8d;
+
+        border-radius: var(--global-border-radius);
+      }
+
+      .toolbox .stroke .box .point {
+        background: #ffffff;
+      }
+
+      .toolbox .select {
+        width: calc(100% - 15px);
+        height: 40px;
+
+        margin: 10px 0px 10px;
+        margin-left: 5px;
+
+        background: #ffffff;
+
+        border-radius: var(--global-border-radius);
+      }
+
+      .toolbox .colour,
+      .toolbox .models {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .toolbox .colour .rect,
+      .toolbox .models .rect {
+        width: 40px;
+        height: 40px;
+
+        border-radius: var(--global-border-radius);
+        margin: 2px 5px;
+
+        background: #ffffff;
+      }
+
+      .toolbox .colour .rect:nth-child(2n),
+      .toolbox .models .rect:nth-child(2n) {
+        margin-left: 0px;
+      }
+
+      .toolbox .models .rect {
+        background: #7f8c8d;
+      }
+
+      .workspace {
+        flex: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbox">
+      <div class="stroke">
+        <div class="box">
+          <div class="point" style="width: 8px; height: 8px;"></div>
+        </div>
+        <div class="box">
+          <div class="point" style="width: 12px; height: 12px;"></div>
+        </div>
+        <div class="box">
+          <div class="point" style="width: 16px; height: 16px;"></div>
+        </div>
+      </div>
+      <div class="models">
+        <div class="rect"></div>
+        <div class="rect"></div>
+        <div class="rect"></div>
+        <div class="rect"></div>
+      </div>
+      <div class="select"></div>
+      <div class="colour"></div>
+    </div>
+    <div class="workspace" id="workspace"></div>
+    <script>
+      let canvas = null;
+      let width = 640;
+      let height = 480;
+
+      function InitColour() {
+        const colours = document.querySelector('.colour');
+        new Array(16).fill(0).map(color => {
+          const element = document.createElement('div');
+          element.setAttribute('class', 'rect');
+          colours.appendChild(element);
+        });
+      }
+
+      function InitCanvas() {
+        const workspace = document.querySelector('.workspace');
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.style.boxShadow = '0px 0px 10px 0px #b2b2b2';
+
+        workspace.appendChild(canvas);
+      }
+
+      function InitBackground() {
+        if (canvas) {
+          const context = canvas.getContext('2d');
+        }
+      }
+
+      InitColour();
+      InitCanvas();
+      InitBackground();
+    </script>
+  </body>
+</html>
