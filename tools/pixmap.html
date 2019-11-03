@@ -26,6 +26,25 @@
         padding: 10px;
       }
 
+      .toolbox .dimension {
+        width: calc(100% - 15px);
+
+        margin-left: 5px;
+        margin-bottom: 10px;
+      }
+
+      .toolbox .dimension input {
+        width: 100%;
+
+        padding: 0.5em 0.25em;
+        border-radius: 2px;
+        border: 1px solid #b2b2b2;
+      }
+
+      .toolbox .dimension input + input {
+        margin-top: 0.5em;
+      }
+
       .toolbox .stroke {
         display: flex;
         align-items: center;
@@ -105,6 +124,10 @@
   </head>
   <body>
     <div class="toolbox">
+      <div class="dimension">
+        <input type="text" />
+        <input type="text" />
+      </div>
       <div class="stroke">
         <div class="box">
           <div class="point" style="width: 8px; height: 8px;"></div>
@@ -127,38 +150,204 @@
     </div>
     <div class="workspace" id="workspace"></div>
     <script>
-      let canvas = null;
+      class CanvasUtils {
+        static getMosaic(width, height, grid, colors) {
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+
+          const context = canvas.getContext('2d');
+
+          for (let i = 0; i < width; i += 2 * grid) {
+            for (let j = 0; j < height; j += 2 * grid) {
+              context.beginPath();
+              context.rect(i, j, grid, grid);
+              context.fillStyle = colors[0];
+              context.fill();
+              context.closePath();
+
+              context.beginPath();
+              context.rect(i + grid, j, grid, grid);
+              context.fillStyle = colors[1];
+              context.fill();
+              context.closePath();
+
+              context.beginPath();
+              context.rect(i, j + grid, grid, grid);
+              context.fillStyle = colors[1];
+              context.fill();
+              context.closePath();
+
+              context.beginPath();
+              context.rect(i + grid, j + grid, grid, grid);
+              context.fillStyle = colors[0];
+              context.fill();
+              context.closePath();
+            }
+          }
+
+          return canvas.toDataURL('image/png');
+        }
+      }
+    </script>
+    <script>
+      let ToolboxColors = {};
+      const Colors = [
+        '#ffffff',
+        '#ff2121',
+        '#ff93c4',
+        '#ff8135',
+        '#fff609',
+        '#249ca3',
+        '#78dc52',
+        '#003fad',
+        '#87f2ff',
+        '#8e2ec4',
+        '#a4839f',
+        '#5c406c',
+        '#e5cdc4',
+        '#91463d',
+        '#000000',
+      ];
+      Colors.map(color => {
+        ToolboxColors[color] = {
+          color,
+          render: function render(context, x, y, width, height) {
+            context.beginPath();
+            context.rect(x, y, 20, 20);
+            context.fillStyle = color;
+            context.fill();
+            context.closePath();
+          },
+        };
+      });
+    </script>
+    <script>
+      let canvas = (context = null);
+      let origin = { x: 0, y: 0 };
+
       let width = 640;
       let height = 480;
 
+      let SelectOfColor = null;
+
+      function SelectColor(event) {
+        const element = event.target;
+        const color = element.dataset.color;
+        SelectColor = ToolboxColors[color];
+      }
+
       function InitColour() {
         const colours = document.querySelector('.colour');
-        new Array(16).fill(0).map(color => {
+
+        Object.values(ToolboxColors).map(item => {
           const element = document.createElement('div');
+
           element.setAttribute('class', 'rect');
+          element.dataset.color = item.color;
+          element.style.background = item.color;
+
+          element.addEventListener('click', SelectColor);
+
           colours.appendChild(element);
         });
       }
 
       function InitCanvas() {
         const workspace = document.querySelector('.workspace');
-        const canvas = document.createElement('canvas');
+        canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
         canvas.style.boxShadow = '0px 0px 10px 0px #b2b2b2';
+        context = canvas.getContext('2d');
 
         workspace.appendChild(canvas);
       }
 
       function InitBackground() {
         if (canvas) {
-          const context = canvas.getContext('2d');
+          for (let i = 20; i < width; i += 20) {
+            context.beginPath();
+            context.lineWidth = 1;
+            context.moveTo(i + 0.5, 0);
+            context.lineTo(i + 0.5, height);
+            context.stroke();
+            context.closePath();
+          }
+          for (let i = 20; i < height; i += 20) {
+            context.beginPath();
+            context.lineWidth = 1;
+            context.moveTo(0, i + 0.5);
+            context.lineTo(width, i + 0.5);
+            context.stroke();
+            context.closePath();
+          }
+        }
+      }
+
+      function InitOrigin() {
+        if (canvas) {
+          const rect = canvas.getBoundingClientRect();
+          const { x, y } = rect;
+          origin = {
+            x,
+            y,
+          };
+        }
+      }
+
+      function InitDrawer() {
+        if (canvas) {
+          let isDraw = false;
+          let coord = null;
+
+          let mosaic = new Image();
+          mosaic.src = CanvasUtils.getMosaic(20, 20, 5, ['#dedede', '#ffffff']);
+
+          canvas.addEventListener('mousedown', event => {
+            isDraw = true;
+          });
+
+          canvas.addEventListener('mousemove', event => {
+            if (isDraw) {
+              const { clientX, clientY } = event;
+              const x = clientX - origin.x;
+              const y = clientY - origin.y;
+
+              const rx = Math.floor(x / 20) * 20;
+              const ry = Math.floor(y / 20) * 20;
+
+              // if (coord) {
+              //   context.beginPath();
+              //   context.clearRect(coord.x, coord.y, 20, 20);
+              //   context.closePath();
+              // }
+
+              context.beginPath();
+
+              SelectColor.render(context, rx, ry, 20, 20);
+
+              context.closePath();
+
+              coord = { x: rx, y: ry };
+            }
+          });
+
+          canvas.addEventListener('mouseup', event => {
+            isDraw = false;
+          });
+
+          canvas.addEventListener('mouseover', event => {
+            isDraw = false;
+          });
         }
       }
 
       InitColour();
       InitCanvas();
       InitBackground();
+      InitOrigin();
+      InitDrawer();
     </script>
   </body>
 </html>
