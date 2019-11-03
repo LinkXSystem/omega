@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Transport</title>
+  </head>
+  <body>
+    <input id="file" type="file" />
+    <script>
+      const input = document.getElementById('file');
+      input.addEventListener('change', event => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          console.log(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      });
+    </script>
+  </body>
+</html>
