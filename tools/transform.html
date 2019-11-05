@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Canvas/Transform</title>
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <style>
+      html,
+      body {
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const context = canvas.getContext('2d');
+
+      const angle = 90;
+      const width = 10;
+      const height = 40;
+
+      context.translate(canvas.width / 2, 0);
+
+      context.rotate(Math.PI / 4);
+
+      context.save();
+
+      context.globalAlpha = 1;
+      context.globalAlpha = 0.15;
+      context.fillStyle = '#FFF';
+      context.shadowBlur = 1;
+      context.shadowColor = '#AAA';
+
+      const floors = 200;
+
+      for (let i = 0; i < floors; i += 1) {
+        context.translate(-1, -1);
+
+        context.globalAlpha = Math.pow((i / floors) * 0.75, 2);
+
+        context.beginPath();
+
+        context.lineCap = 'round';
+
+        context.moveTo(300, 300);
+        context.lineTo(
+          300 + width * Math.cos((Math.PI / 180) * angle),
+          300 - width * Math.sin((Math.PI / 180) * angle),
+        );
+        context.lineTo(
+          300 +
+            width * Math.cos((Math.PI / 180) * angle) +
+            height * Math.sin((Math.PI / 180) * angle),
+          300 -
+            width * Math.sin((Math.PI / 180) * angle) +
+            height * Math.cos((Math.PI / 180) * angle),
+        );
+
+        context.lineTo(
+          300 + height * Math.sin((Math.PI / 180) * angle),
+          300 + height * Math.cos((Math.PI / 180) * angle),
+        );
+        context.lineTo(300, 300);
+
+        context.closePath();
+
+        context.strokeStyle = '#000000';
+        context.stroke();
+      }
+
+      context.restore();
+    </script>
+  </body>
+</html>
