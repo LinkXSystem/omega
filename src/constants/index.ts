@@ -1,7 +1,7 @@
 const MouseEvent = {
   MOUSEDOWN: 'mousedown',
   MOUSEUP: 'mouseup',
-  MOUSEeNTER: 'mouseenter',
+  MOUSEENTER: 'mouseenter',
   MOUSEMOVE: 'mousemove',
   MOUSEOVER: 'mouseover',
   MOUSELEAVE: 'mouseleave',
