@@ -38,6 +38,8 @@ abstract class Node implements NodeInterface {
     this.onDraggableFinish = this.onDraggableFinish.bind(this);
     this.onClick = this.onClick.bind(this);
 
+    this.handleRefreshConnects = this.handleRefreshConnects.bind(this);
+
     this.created();
   }
 
@@ -58,13 +60,11 @@ abstract class Node implements NodeInterface {
   }
 
   getShapeInfos() {
-    return this.rect;
+    return this.element.getBoundingClientRect();
   }
 
   setShapeInfos() {
     this.rect = this.element.getBoundingClientRect();
-
-    console.warn(this.rect);
 
     const { x, y, width, height } = this.rect as DOMRect;
 
@@ -78,16 +78,12 @@ abstract class Node implements NodeInterface {
     console.warn('please rewrite the method !!!');
   }
 
-  getPosition() {
+  getCoordinate() {
     return this.coordinate;
   }
 
-  setPosition(x: number, y: number) {
+  setCoordinate(x: number, y: number) {
     const { element } = this;
-    this.coordinate = {
-      x,
-      y,
-    };
     StyleSheet.compose(
       element,
       {
@@ -95,6 +91,7 @@ abstract class Node implements NodeInterface {
         top: `${y}px`,
       },
     );
+    this.setShapeInfos();
   }
 
   setConnector(connector: Connector) {
@@ -114,8 +111,6 @@ abstract class Node implements NodeInterface {
   onClick(event: MouseEvent) {
     event.stopPropagation();
 
-    console.warn('dalax');
-
     if (this.isDraggable) {
       this.isDraggable = false;
       return;
@@ -125,6 +120,8 @@ abstract class Node implements NodeInterface {
     emitter.emit('node:connect', {
       node: this,
     });
+
+    // this.auxiliary.setDisabled(true);
   }
 
   onDraggableStart(event: MouseEvent) {
@@ -154,12 +151,25 @@ abstract class Node implements NodeInterface {
         left: `${x - width / 2}px`,
       },
     );
+
+    this.handleRefreshConnects();
   }
 
   onDraggableFinish(event: MouseEvent) {
     event.stopPropagation();
 
     Listener.unbind(this.element, 'mousemove', this.onDrag);
+  }
+
+  handleRefreshConnects() {
+    const { connectors, coordinate } = this;
+    console.warn('A', connectors);
+    if (connectors && connectors.length) {
+      const { x, y } = coordinate;
+      connectors.forEach(connector => {
+        connector.refresh(x, y);
+      });
+    }
   }
 
   render() {
@@ -170,10 +180,6 @@ abstract class Node implements NodeInterface {
     this.setShapeInfos();
 
     this.mounted();
-
-    if (this.auxiliary) {
-      this.auxiliary.setDisabled(true);
-    }
   }
 
   destroy(callback: Function) {

@@ -11,8 +11,8 @@ interface NodeInterface {
   coordinate: Point;
   workspace: Workspace;
 
-  getPosition: Function;
-  setPosition: Function;
+  getCoordinate: Function;
+  setCoordinate: Function;
 
   getShapeInfos: Function;
   setShapeInfos: Function;

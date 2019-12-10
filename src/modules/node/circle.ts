@@ -2,7 +2,7 @@ import Node from './node';
 import { Workspace } from '../workspace';
 import StyleSheet from '../../lib/stylesheet';
 
-import { CircleAuxiliary } from '../auxiliary';
+import { AuxiliaryCircle } from '../auxiliary';
 
 class Circle extends Node {
   diameter: number;
@@ -11,7 +11,7 @@ class Circle extends Node {
     super(workspace, 'circle');
 
     this.diameter = diameter;
-    this.auxiliary = new CircleAuxiliary(this);
+    this.auxiliary = new AuxiliaryCircle(this);
   }
 
   setStyleSheet() {
