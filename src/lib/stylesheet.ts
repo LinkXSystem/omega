@@ -1,5 +1,13 @@
 class StyleSheet {
-  static NumberOfStyle = ['width', 'height', 'top', 'left', 'right', 'bottom'];
+  static NumberOfStyle = [
+    'width',
+    'height',
+    'top',
+    'left',
+    'right',
+    'bottom',
+    'border-radius',
+  ];
 
   static compose(element: HTMLElement, style: Object) {
     const entries = Object.entries(style);
@@ -28,6 +36,8 @@ class StyleSheet {
 
     return temp;
   }
+
+  static parser(styles: string) {}
 }
 
 export default StyleSheet;
