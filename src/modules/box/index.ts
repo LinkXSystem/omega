@@ -39,8 +39,8 @@ class Box {
 
   setCoordinate(x: number, y: number) {
     this.setStyle({
-      top: x,
-      left: y,
+      top: y,
+      left: x,
     });
 
     return this;
