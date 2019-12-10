@@ -1,4 +1,4 @@
 import Auxiliary from './interface';
-import CircleAuxiliary from './circle';
+import AuxiliaryCircle from './circle';
 
-export { Auxiliary, CircleAuxiliary };
+export { Auxiliary, AuxiliaryCircle };
