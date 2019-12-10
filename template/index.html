@@ -34,16 +34,16 @@
         const y = Math.floor(Math.random() * width);
         const circle = new Omega.Circle(workspace);
         circle.render();
-        circle.setPosition(x, y);
+        circle.setCoordinate(x, y);
       });
 
       const rectangle = new Omega.Rectangle(workspace, 200, 100, 4);
       rectangle.render();
-      rectangle.setPosition(200, 100);
+      rectangle.setCoordinate(200, 100);
 
       const diamond = new Omega.Diamond(workspace, 100, 4);
       diamond.render();
-      diamond.setPosition(300, 200);
+      diamond.setCoordinate(300, 200);
     </script>
   </body>
 </html>
