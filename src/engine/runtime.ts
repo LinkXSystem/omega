@@ -50,17 +50,21 @@ class Runtime {
     const { node } = data;
 
     if (!Boolean(this.input)) {
-      const { x, y } = node.getPosition();
+      const { x, y } = node.getCoordinate();
       this.input = new InputConnector(x, y);
       node.setConnector(this.input);
       return;
     }
 
     if (Boolean(this.input)) {
-      const { x, y } = node.getPosition();
-      const output = new OutputConnector(x, y);
-      output.setConnector(this.input);
-      node.setConnector(output);
+      const { x, y } = node.getCoordinate();
+      this.output = new OutputConnector(x, y);
+      ConnectorUtils.compose(
+        this.input,
+        this.output,
+        this.workspace.renderer,
+      );
+      node.setConnector(this.output);
       this.handleClearConnector();
     }
   }
