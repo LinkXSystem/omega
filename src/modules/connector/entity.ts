@@ -28,14 +28,17 @@ class InputConnector implements Connector {
   }
 
   setElement(element: Element) {
-    this.element = element;
+    if (element !== this.element) {
+      this.element = element;
+    }
   }
 
   refresh(x: number, y: number) {
     const { connector } = this;
     this.x = x;
     this.y = y;
-    Svg.getCubicBezier(x, y, connector.x, connector.y);
+    const curve = Svg.getCubicBezier(x, y, connector.x, connector.y);
+    this.element.setPath(curve).update();
   }
 }
 
@@ -71,7 +74,7 @@ class OutputConnector implements Connector {
     this.x = x;
     this.y = y;
     const curve = Svg.getCubicBezier(x, y, connector.x, connector.y);
-    this.element.setPath(curve).update();
+    this.element && this.element.setPath(curve).update();
   }
 }
 

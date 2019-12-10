@@ -4,7 +4,7 @@ import { Renderer } from '../renderer';
 
 class ConnectorUtils {
   static compose(input: Connector, output: Connector, renderer: Renderer) {
-    const element = new Element();
+    const element = input.getElement() || new Element();
     renderer.render(element.toXml());
 
     input.setConnector(output);
