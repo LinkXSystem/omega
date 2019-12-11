@@ -1,4 +1,6 @@
 import Node from './node';
+
+import { Background } from '../../constants';
 import StyleSheet from '../../lib/stylesheet';
 import { Workspace } from '../workspace';
 
@@ -22,7 +24,7 @@ class Diamond extends Node {
       height: `${height}px`,
       'border-radius': `${radius}px`,
       transform: 'rotate(45deg)',
-      background: 'linear-gradient(45deg, black, transparent)',
+      background: Background.LINEARGRADIENT,
       boxShadow: '0 0 10px #b2b2b2',
     };
 

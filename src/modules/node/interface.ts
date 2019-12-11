@@ -6,10 +6,12 @@ interface NodeInterface {
   uuid: string;
   type: string;
 
-  element: HTMLElement;
+  element: HTMLElement | SVGElement;
   rect: DOMRect | ClientRect;
   coordinate: Point;
   workspace: Workspace;
+
+  getElement: Function;
 
   getCoordinate: Function;
   setCoordinate: Function;

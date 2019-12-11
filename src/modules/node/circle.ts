@@ -1,4 +1,6 @@
 import Node from './node';
+
+import { Background } from '../../constants';
 import { Workspace } from '../workspace';
 import StyleSheet from '../../lib/stylesheet';
 
@@ -20,7 +22,7 @@ class Circle extends Node {
       width: '100px',
       height: '100px',
       borderRadius: '50%',
-      background: 'linear-gradient(45deg, black, transparent)',
+      background: Background.LINEARGRADIENT,
       boxShadow: '0 0 10px #b2b2b2',
     };
 

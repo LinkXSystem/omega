@@ -1,21 +1,22 @@
-import { NodeInterface } from './interface';
+import { NodeInterface } from "./interface";
 
-import { Workspace } from '../workspace';
-import { Point } from '../common';
+import { ZIndex } from '../../constants';
+import { Workspace } from "../workspace";
+import { Point } from "../common";
 
-import Listener from '../../lib/listener';
-import UUID from '../../lib/uuid';
-import StyleSheet from '../../lib/stylesheet';
+import Listener from "../../lib/listener";
+import UUID from "../../lib/uuid";
+import StyleSheet from "../../lib/stylesheet";
 
-import { Connector } from '../connector';
+import { Connector } from "../connector";
 
-import { Auxiliary } from '../auxiliary';
+import { Auxiliary } from "../auxiliary";
 
 abstract class Node implements NodeInterface {
   uuid: string;
   type: string;
 
-  element: HTMLElement;
+  element: HTMLElement | SVGElement;
   rect: DOMRect | ClientRect;
   coordinate: Point;
   workspace: Workspace;
@@ -39,24 +40,31 @@ abstract class Node implements NodeInterface {
     this.onClick = this.onClick.bind(this);
 
     this.handleRefreshConnects = this.handleRefreshConnects.bind(this);
-
-    this.created();
   }
 
   created() {
-    this.element = document.createElement('div');
-    this.element.dataset['type'] = this.type;
-    this.element.dataset['uuid'] = this.uuid;
+    this.element = this.getElement();
+    this.element.dataset["type"] = this.type;
+    this.element.dataset["uuid"] = this.uuid;
 
-    Listener.bind(this.element, 'mousedown', this.onDraggableStart);
-    Listener.bind(this.element, 'mouseup', this.onDraggableFinish);
-    Listener.bind(this.element, 'mouseover', this.onDraggableFinish);
-    Listener.bind(this.element, 'mouseleave', this.onDraggableFinish);
-    Listener.bind(this.element, 'click', this.onClick);
+    // TODO：未来需要考虑鼠标右键的问题
+    Listener.bind(this.element, "mousedown", this.onDraggableStart);
+    Listener.bind(this.element, "mouseup", this.onDraggableFinish);
+    Listener.bind(this.element, "mouseover", this.onDraggableFinish);
+    Listener.bind(this.element, "mouseleave", this.onDraggableFinish);
+    Listener.bind(this.element, "click", this.onClick);
+
+    Listener.bind(this.element, "contextmenu", (event: MouseEvent) => {
+      event.preventDefault();
+    });
   }
 
   mounted() {
-    console.warn('It is mount of stage in node !!!');
+    console.warn("It is mount of stage in node !!!");
+  }
+
+  getElement() {
+    return this.element || document.createElement("div");
   }
 
   getShapeInfos() {
@@ -66,16 +74,16 @@ abstract class Node implements NodeInterface {
   setShapeInfos() {
     this.rect = this.element.getBoundingClientRect();
 
-    const { x, y, width, height } = this.rect as DOMRect;
+    const { top, left, width, height } = this.rect as DOMRect;
 
     this.coordinate = {
-      x: x + width / 2,
-      y: y + height / 2,
+      x: left + width / 2,
+      y: top + height / 2
     };
   }
 
   setStyleSheet() {
-    console.warn('please rewrite the method !!!');
+    console.warn("please rewrite the method !!!");
   }
 
   getCoordinate() {
@@ -84,13 +92,10 @@ abstract class Node implements NodeInterface {
 
   setCoordinate(x: number, y: number) {
     const { element } = this;
-    StyleSheet.compose(
-      element,
-      {
-        left: `${x}px`,
-        top: `${y}px`,
-      },
-    );
+    StyleSheet.compose(element, {
+      left: `${x}px`,
+      top: `${y}px`
+    });
     this.setShapeInfos();
   }
 
@@ -104,7 +109,7 @@ abstract class Node implements NodeInterface {
   delConnector(connector: Connector) {
     if (!this.connectors) return;
     this.connectors = this.connectors.filter(
-      item => item.uuid !== connector.uuid,
+      item => item.uuid !== connector.uuid
     );
   }
 
@@ -117,8 +122,8 @@ abstract class Node implements NodeInterface {
     }
 
     const { emitter } = this.workspace;
-    emitter.emit('node:connect', {
-      node: this,
+    emitter.emit("node:connect", {
+      node: this
     });
 
     // this.auxiliary.setDisabled(true);
@@ -127,12 +132,18 @@ abstract class Node implements NodeInterface {
   onDraggableStart(event: MouseEvent) {
     event.stopPropagation();
 
-    Listener.bind(this.element, 'mousemove', this.onDrag);
+    StyleSheet.compose(this.element, {
+      position: "absolute",
+      zIndex: ZIndex.ELEMENT,
+    });
+
+    Listener.bind(this.element, "mousemove", this.onDrag);
   }
 
   onDrag(event: MouseEvent) {
     event.stopPropagation();
 
+    // TODO: 非规则的几何图形的 width 和 height 会导致计算偏差。需要重写获取宽高的方法
     const { width, height } = this.rect;
     const { x, y } = event;
 
@@ -140,17 +151,13 @@ abstract class Node implements NodeInterface {
 
     this.coordinate = {
       x,
-      y,
+      y
     };
 
-    StyleSheet.compose(
-      this.element,
-      {
-        position: 'absolute',
-        top: `${y - height / 2}px`,
-        left: `${x - width / 2}px`,
-      },
-    );
+    StyleSheet.compose(this.element, {
+      top: `${y - height / 2}px`,
+      left: `${x - width / 2}px`
+    });
 
     this.handleRefreshConnects();
   }
@@ -158,12 +165,15 @@ abstract class Node implements NodeInterface {
   onDraggableFinish(event: MouseEvent) {
     event.stopPropagation();
 
-    Listener.unbind(this.element, 'mousemove', this.onDrag);
+    StyleSheet.compose(this.element, {
+      zIndex: ZIndex.DEFAULT,
+    });
+    
+    Listener.unbind(this.element, "mousemove", this.onDrag);
   }
 
   handleRefreshConnects() {
     const { connectors, coordinate } = this;
-    console.warn('A', connectors);
     if (connectors && connectors.length) {
       const { x, y } = coordinate;
       connectors.forEach(connector => {
@@ -174,6 +184,9 @@ abstract class Node implements NodeInterface {
 
   render() {
     const { container } = this.workspace;
+    if (!this.element) {
+      this.created();
+    }
     container.appendChild(this.element);
 
     this.setStyleSheet();
