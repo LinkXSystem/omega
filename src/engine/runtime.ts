@@ -50,12 +50,17 @@ class Runtime {
 
     if (!Boolean(this.input)) {
       const { x, y } = node.getCoordinate();
+      this.node = node;
       this.input = new InputConnector(x, y);
       node.setConnector(this.input);
       return;
     }
 
     if (Boolean(this.input)) {
+      if (node === this.node) {
+        return this.handleCancelConnector(null, true);
+      }
+
       const { x, y } = node.getCoordinate();
       this.output = new OutputConnector(x, y);
       ConnectorUtils.compose(this.input, this.output, this.workspace.renderer);
@@ -77,11 +82,11 @@ class Runtime {
     }
   }
 
-  handleCancelConnector(event: MouseEvent) {
-    if (Boolean(this.input) && Boolean(this.output)) {
+  handleCancelConnector(event: MouseEvent | null, isForce: boolean = false) {
+    if (isForce || (Boolean(this.input) && Boolean(this.output))) {
       const element = this.input.getElement();
       this.workspace.renderer.remove(element.toXml());
-      this.input = this.output = null;
+      this.handleClearConnector();
     }
   }
 }
