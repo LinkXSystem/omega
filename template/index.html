@@ -31,7 +31,7 @@
 
       new Array(2).fill('').forEach(() => {
         const x = Math.floor(Math.random() * width);
-        const y = Math.floor(Math.random() * width);
+        const y = Math.floor(Math.random() * height);
         const circle = new Omega.Circle(workspace);
         circle.render();
         circle.setCoordinate(x, y);
