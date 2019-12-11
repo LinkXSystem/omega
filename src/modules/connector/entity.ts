@@ -66,7 +66,9 @@ class OutputConnector implements Connector {
   }
 
   setElement(element: Element) {
-    this.element = element;
+    if (element !== this.element) {
+      this.element = element;
+    }
   }
 
   refresh(x: number, y: number) {
