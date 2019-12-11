@@ -1,16 +1,16 @@
-import { NodeInterface } from "./interface";
+import { NodeInterface } from './interface';
 
 import { ZIndex } from '../../constants';
-import { Workspace } from "../workspace";
-import { Point } from "../common";
+import { Workspace } from '../workspace';
+import { Point } from '../common';
 
-import Listener from "../../lib/listener";
-import UUID from "../../lib/uuid";
-import StyleSheet from "../../lib/stylesheet";
+import Listener from '../../lib/listener';
+import UUID from '../../lib/uuid';
+import StyleSheet from '../../lib/stylesheet';
 
-import { Connector } from "../connector";
+import { Connector } from '../connector';
 
-import { Auxiliary } from "../auxiliary";
+import { Auxiliary } from '../auxiliary';
 
 abstract class Node implements NodeInterface {
   uuid: string;
@@ -44,27 +44,27 @@ abstract class Node implements NodeInterface {
 
   created() {
     this.element = this.getElement();
-    this.element.dataset["type"] = this.type;
-    this.element.dataset["uuid"] = this.uuid;
+    this.element.dataset['type'] = this.type;
+    this.element.dataset['uuid'] = this.uuid;
 
     // TODO：未来需要考虑鼠标右键的问题
-    Listener.bind(this.element, "mousedown", this.onDraggableStart);
-    Listener.bind(this.element, "mouseup", this.onDraggableFinish);
-    Listener.bind(this.element, "mouseover", this.onDraggableFinish);
-    Listener.bind(this.element, "mouseleave", this.onDraggableFinish);
-    Listener.bind(this.element, "click", this.onClick);
+    Listener.bind(this.element, 'mousedown', this.onDraggableStart);
+    Listener.bind(this.element, 'mouseup', this.onDraggableFinish);
+    Listener.bind(this.element, 'mouseover', this.onDraggableFinish);
+    Listener.bind(this.element, 'mouseleave', this.onDraggableFinish);
+    Listener.bind(this.element, 'click', this.onClick);
 
-    Listener.bind(this.element, "contextmenu", (event: MouseEvent) => {
+    Listener.bind(this.element, 'contextmenu', (event: MouseEvent) => {
       event.preventDefault();
     });
   }
 
   mounted() {
-    console.warn("It is mount of stage in node !!!");
+    console.warn('It is mount of stage in node !!!');
   }
 
   getElement() {
-    return this.element || document.createElement("div");
+    return this.element || document.createElement('div');
   }
 
   getShapeInfos() {
@@ -83,7 +83,7 @@ abstract class Node implements NodeInterface {
   }
 
   setStyleSheet() {
-    console.warn("please rewrite the method !!!");
+    console.warn('please rewrite the method !!!');
   }
 
   getCoordinate() {
@@ -122,7 +122,7 @@ abstract class Node implements NodeInterface {
     }
 
     const { emitter } = this.workspace;
-    emitter.emit("node:connect", {
+    emitter.emit('node:connect', {
       node: this
     });
 
@@ -133,18 +133,18 @@ abstract class Node implements NodeInterface {
     event.stopPropagation();
 
     StyleSheet.compose(this.element, {
-      position: "absolute",
-      zIndex: ZIndex.ELEMENT,
+      position: 'absolute',
+      zIndex: ZIndex.ELEMENT
     });
 
-    Listener.bind(this.element, "mousemove", this.onDrag);
+    Listener.bind(this.element, 'mousemove', this.onDrag);
   }
 
   onDrag(event: MouseEvent) {
     event.stopPropagation();
 
     // TODO: 非规则的几何图形的 width 和 height 会导致计算偏差。需要重写获取宽高的方法
-    const { width, height } = this.rect;
+    const { width, height } = this.getShapeInfos();
     const { x, y } = event;
 
     this.isDraggable = true;
@@ -166,10 +166,10 @@ abstract class Node implements NodeInterface {
     event.stopPropagation();
 
     StyleSheet.compose(this.element, {
-      zIndex: ZIndex.DEFAULT,
+      zIndex: ZIndex.DEFAULT
     });
-    
-    Listener.unbind(this.element, "mousemove", this.onDrag);
+
+    Listener.unbind(this.element, 'mousemove', this.onDrag);
   }
 
   handleRefreshConnects() {

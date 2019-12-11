@@ -16,6 +16,15 @@ class Diamond extends Node {
     this.radius = radius;
   }
 
+  getShapeInfos() {
+    const { width, height } = this;
+    const rect = this.element.getBoundingClientRect();
+    return Object.assign({}, rect, {
+      width,
+      height
+    });
+  }
+
   setStyleSheet() {
     const { width, height, radius } = this;
     const style = {
@@ -25,14 +34,11 @@ class Diamond extends Node {
       'border-radius': `${radius}px`,
       transform: 'rotate(45deg)',
       background: Background.LINEARGRADIENT,
-      boxShadow: '0 0 10px #b2b2b2',
+      boxShadow: '0 0 10px #b2b2b2'
     };
 
     const { element } = this;
-    StyleSheet.compose(
-      element,
-      style,
-    );
+    StyleSheet.compose(element, style);
   }
 }
 

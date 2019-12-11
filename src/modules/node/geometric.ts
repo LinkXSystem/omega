@@ -14,7 +14,7 @@ class Geometric extends Node {
     workspace: Workspace,
     width: number,
     height: number,
-    path: string,
+    path: string
   ) {
     super(workspace, 'geometric');
 
@@ -24,7 +24,7 @@ class Geometric extends Node {
   }
 
   getElement() {
-      return this.element || Svg.createElement('svg');
+    return this.element || Svg.createElement('svg');
   }
 
   setStyleSheet() {
@@ -32,15 +32,12 @@ class Geometric extends Node {
     const style = {
       position: 'absolute',
       width: `${width}px`,
-      height: `${height}px`,
+      height: `${height}px`
     };
 
     const { element } = this;
-    
-    StyleSheet.compose(
-      element,
-      style,
-    );
+
+    StyleSheet.compose(element, style);
   }
 }
 

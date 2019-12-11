@@ -13,7 +13,7 @@ class Rectangle extends Node {
     workspace: Workspace,
     width: number,
     height: number,
-    radius: number,
+    radius: number
   ) {
     super(workspace, 'rectangle');
 
@@ -30,15 +30,12 @@ class Rectangle extends Node {
       height: `${height}px`,
       'border-radius': `${radius}px`,
       background: Background.LINEARGRADIENT,
-      boxShadow: '0 0 10px #b2b2b2',
+      boxShadow: '0 0 10px #b2b2b2'
     };
 
     const { element } = this;
-    
-    StyleSheet.compose(
-      element,
-      style,
-    );
+
+    StyleSheet.compose(element, style);
   }
 }
 
