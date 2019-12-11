@@ -1,7 +1,9 @@
+import Listener from '../lib/listener';
+
 class Svg {
   static Namespace: string = 'http://www.w3.org/2000/svg';
 
-  static createElement(name: string, attributes: Object): SVGElement {
+  static createElement(name: string, attributes: Object = {}): SVGElement {
     const element = document.createElementNS(Svg.Namespace, name);
     Object.entries(attributes).forEach(attribute => {
       const [name, value] = attribute;
@@ -55,6 +57,14 @@ class Element {
   setPath(path: string) {
     this.path = path;
     return this;
+  }
+
+  bind(event: string, callback: Function) {
+    Listener.bind(this.node, event, callback);
+  }
+
+  unbind(event: string, callback: Function) {
+    Listener.unbind(this.node, event, callback);
   }
 
   lineTo(x: number, y: number, absolute: Boolean = false) {

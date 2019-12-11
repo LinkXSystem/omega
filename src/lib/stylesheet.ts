@@ -9,7 +9,7 @@ class StyleSheet {
     'border-radius',
   ];
 
-  static compose(element: HTMLElement, style: Object) {
+  static compose(element: HTMLElement | SVGElement, style: Object) {
     const entries = Object.entries(style);
     entries.forEach(entry => {
       // Maybe that is not valid method, solve No.7015 problem !
