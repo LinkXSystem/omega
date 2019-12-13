@@ -45,6 +45,9 @@ class Element {
   path: string;
   fill: string;
 
+  width: number;
+  stroke: string;
+
   constructor(path: string = '', fill = 'none') {
     this.path = path;
     this.fill = fill;
@@ -57,6 +60,22 @@ class Element {
   setPath(path: string) {
     this.path = path;
     return this;
+  }
+
+  getWidth() {
+    return this.width;
+  }
+
+  setWidth(width: number) {
+    this.width = width;
+  }
+
+  getStroke() {
+    return this.stroke;
+  }
+
+  setStroke(stroke) {
+    this.stroke = stroke;
   }
 
   bind(event: string, callback: Function) {
@@ -141,11 +160,13 @@ class Element {
 
   toXml() {
     if (!Boolean(this.node)) {
+      const { path, fill, width, stroke } = this;
+
       this.node = Svg.createElement('path', {
-        d: this.path,
-        stroke: 'black',
-        fill: this.fill,
-        'stroke-width': '1',
+        d: path,
+        stroke: stroke || '#c9c9c9',
+        fill: 'none',
+        'stroke-width': width || '5'
       });
     }
 

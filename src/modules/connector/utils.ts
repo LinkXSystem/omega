@@ -4,6 +4,7 @@ import { Renderer } from '../renderer';
 
 class ConnectorUtils {
   static compose(input: Connector, output: Connector, renderer: Renderer) {
+    // TODO: 需要替换成新的 Line 模块，注意从配置传入，或 runtime 获取
     const element = input.getElement() || new Element();
     renderer.render(element.toXml());
 
