@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <style>
+      body {
+        overflow: hidden;
+      }
+
+      #canvas {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <svg id="canvas" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <pattern
+          id="p1"
+          x="0"
+          y="0"
+          width="20"
+          height="20"
+          patternUnits="userSpaceOnUse"
+        >
+          <circle cx="10" cy="10" r="1" fill="#dddddd" />
+        </pattern>
+        <rect id="background" x="0" y="0" fill="url(#p1)" />
+      </g>
+    </svg>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const background = document.getElementById('background');
+
+      function render() {
+        canvas.setAttribute(
+          'viewBox',
+          `0 0 ${window.innerWidth} ${window.innerHeight}`
+        );
+
+        background.setAttribute('width', window.innerWidth - 0);
+        background.setAttribute('height', window.innerHeight - 0);
+      }
+
+      render();
+
+      window.addEventListener('resize', render);
+    </script>
+  </body>
+</html>
