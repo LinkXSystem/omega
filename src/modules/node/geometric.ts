@@ -23,8 +23,8 @@ class Geometric extends Node {
     this.path = path;
   }
 
-  getElement() {
-    return this.element || Svg.createElement('svg');
+  handleCreateElement() {
+    return Svg.createElement('svg');
   }
 
   setStyleSheet() {

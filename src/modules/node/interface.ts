@@ -11,6 +11,8 @@ interface NodeInterface {
   coordinate: Point;
   workspace: Workspace;
 
+  isCouldConnect: boolean;
+
   getElement: Function;
 
   getCoordinate: Function;
@@ -19,7 +21,11 @@ interface NodeInterface {
   getShapeInfos: Function;
   setShapeInfos: Function;
 
+  handleCreateElement: Function;
+
   render: Function;
+
+  toJSON: Function;
 }
 
 export { NodeInterface };

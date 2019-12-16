@@ -23,6 +23,8 @@ abstract class Node implements NodeInterface {
 
   isDraggable: boolean;
 
+  isCouldConnect: boolean;
+
   connectors: Array<Connector>;
 
   auxiliary: Auxiliary;
@@ -32,6 +34,7 @@ abstract class Node implements NodeInterface {
 
     this.isDraggable = false;
     this.type = type;
+    this.isCouldConnect = true;
     this.workspace = workspace;
 
     this.onDraggableStart = this.onDraggableStart.bind(this);
@@ -42,8 +45,13 @@ abstract class Node implements NodeInterface {
     this.handleRefreshConnects = this.handleRefreshConnects.bind(this);
   }
 
+  handleCreateElement(): HTMLElement | SVGElement {
+    return document.createElement('div');
+  }
+
   created() {
-    this.element = this.getElement();
+    this.element = this.handleCreateElement();
+
     this.element.dataset['type'] = this.type;
     this.element.dataset['uuid'] = this.uuid;
 
@@ -63,8 +71,20 @@ abstract class Node implements NodeInterface {
     console.warn('It is mount of stage in node !!!');
   }
 
+  getIsCouldConnect() {
+    return this.isCouldConnect;
+  }
+
+  setIsCouldConnect(status: boolean) {
+    this.isCouldConnect = status;
+  }
+
   getElement() {
-    return this.element || document.createElement('div');
+    if (!this.element) {
+      this.created();
+    }
+
+    return this.element;
   }
 
   getShapeInfos() {
@@ -118,6 +138,10 @@ abstract class Node implements NodeInterface {
 
     if (this.isDraggable) {
       this.isDraggable = false;
+      return;
+    }
+
+    if (!this.isCouldConnect) {
       return;
     }
 
@@ -200,6 +224,10 @@ abstract class Node implements NodeInterface {
     container.removeChild(this.element);
 
     callback();
+  }
+
+  toJSON() {
+    return JSON.stringify(this);
   }
 }
 
