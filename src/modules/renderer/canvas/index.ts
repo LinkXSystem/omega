@@ -1,7 +1,4 @@
 import Renderer from '../interface';
-
-import { Shape, Background } from '../../shape';
-
 import { ZIndex } from '../../../constants';
 
 class CanvasRenderer implements Renderer {
@@ -10,8 +7,6 @@ class CanvasRenderer implements Renderer {
   height: number;
 
   context: CanvasRenderingContext2D;
-
-  shapes: Array<Shape> = [];
 
   constructor(container: HTMLElement) {
     const { width, height } = container.getBoundingClientRect();
@@ -28,8 +23,6 @@ class CanvasRenderer implements Renderer {
     this.canvas = canvas;
 
     this.context = canvas.getContext('2d');
-
-    this.shapes.push(new Background(this.context, width, height, '#bbbbbb'));
   }
 
   resize(container: HTMLElement) {
@@ -46,15 +39,11 @@ class CanvasRenderer implements Renderer {
   refresh() {
     const { width, height } = this;
 
-    this.shapes.forEach(shape => {
-      shape.update(width, height);
-    });
+    console.warn('it needs re-implement !');
   }
 
   execute() {
-    this.shapes.forEach(shape => {
-      shape.render();
-    });
+    console.warn('it needs re-implement !');
   }
 
   render() {
