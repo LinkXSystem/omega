@@ -1,7 +1,7 @@
 import { InputConnector, OutputConnector } from './modules/connector';
 import { Workspace } from './modules/workspace';
 import { Node, Circle, Rectangle, Diamond } from './modules/node';
-import { Field, OmegaInputField } from './modules/field';
+import { Comment } from './modules/comment';
 
 interface EditorOption {
   container: HTMLElement;
@@ -21,6 +21,5 @@ export {
   Circle,
   Rectangle,
   Diamond,
-  Field,
-  OmegaInputField,
+  Comment
 };
