@@ -1,4 +1,4 @@
-import { Element } from "../../lib/svg";
+import { Element } from '../../lib/svg';
 
 interface LineInterface {
   uuid: string;
@@ -6,6 +6,9 @@ interface LineInterface {
 
   // TODO: 需要考虑 Canvas 的问题
   element: Element;
+
+  refresh: Function;
+  render: Function;
 }
 
 export { LineInterface };

@@ -1,11 +1,7 @@
-import { LineInterface } from "./interface";
 import { Element } from '../../lib/svg';
+import Line from './line';
 
-/**
- * @description 目前 Line 的类型均是参考 draw.io 的类型定义。
- */
-
-class StraightLine implements LineInterface {
+class StraightLine extends Line {
   uuid: string;
   type: string;
 

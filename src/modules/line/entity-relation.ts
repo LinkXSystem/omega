@@ -1,7 +1,7 @@
-import { LineInterface } from "./interface";
 import { Element } from '../../lib/svg';
+import Line from './line';
 
-class EntityRelationLine implements LineInterface {
+class EntityRelationLine extends Line {
   uuid: string;
   type: string;
 

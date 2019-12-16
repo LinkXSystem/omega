@@ -1,7 +1,7 @@
-import { LineInterface } from "./interface";
 import { Element } from '../../lib/svg';
+import Line from './line';
 
-class CurvedLine implements LineInterface {
+class CurvedLine extends Line {
   uuid: string;
   type: string;
 
