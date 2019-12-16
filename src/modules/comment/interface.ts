@@ -1,5 +1,7 @@
+import { Node } from '../node';
+
 interface CommentInterface {
-  container: Rectangle;
+  container: Node;
   width: number;
   height: number;
   textarea: HTMLElement;
