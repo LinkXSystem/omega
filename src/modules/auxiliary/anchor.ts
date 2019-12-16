@@ -1,4 +1,4 @@
-import Box from '../box';
+import { Box } from '../common';
 import { MouseEvent } from '../../constants';
 import Listener from '../../lib/listener';
 
@@ -32,19 +32,19 @@ class Anchor {
         border: '2px solid #1a73e8',
         'border-radius': '50%',
         transform: ' translate(-50%, -50%)',
-        transition: 'all .3s ease-in-out',
+        transition: 'all .3s ease-in-out'
       });
 
     Listener.bind(
       this.element.toXml(),
       MouseEvent.MOUSEOVER,
-      this.onMouseover.bind(this),
+      this.onMouseover.bind(this)
     );
 
     Listener.bind(
       this.element.toXml(),
       MouseEvent.MOUSELEAVE,
-      this.onMouseleave.bind(this),
+      this.onMouseleave.bind(this)
     );
   }
 
@@ -58,14 +58,14 @@ class Anchor {
   onMouseover() {
     this.element.setStyle({
       width: 16,
-      height: 16,
+      height: 16
     });
   }
 
   onMouseleave() {
     this.element.setStyle({
       width: 10,
-      height: 10,
+      height: 10
     });
   }
 

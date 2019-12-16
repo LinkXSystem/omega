@@ -1,7 +1,7 @@
 import Auxiliary from './interface';
 import Anchor from './anchor';
 import { Node } from '../node';
-import Box from '../box';
+import { Box } from '../common';
 
 class AuxiliaryCircle implements Auxiliary {
   anchors: Array<Anchor>;
@@ -23,7 +23,7 @@ class AuxiliaryCircle implements Auxiliary {
 
   setCacheElement(rect: DOMRect) {
     const { width, height, x, y } = rect;
-    
+
     if (!this.element) {
       this.element = new Box();
 
@@ -36,14 +36,14 @@ class AuxiliaryCircle implements Auxiliary {
         .setPosition('absolute')
         .setStyle({
           border: '1px solid #1a73e8',
-          'border-radius': 4,
+          'border-radius': 4
         });
     }
 
     this.element
       .setStyle({
         width,
-        height,
+        height
       })
       .setCoordinate(x, y);
 
@@ -55,7 +55,7 @@ class AuxiliaryCircle implements Auxiliary {
 
     const middle = {
       x: width / 2,
-      y: height / 2,
+      y: height / 2
     };
 
     if (!this.anchors) {
@@ -63,7 +63,7 @@ class AuxiliaryCircle implements Auxiliary {
         new Anchor(middle.x, 0),
         new Anchor(0, middle.y),
         new Anchor(middle.x, height),
-        new Anchor(width, middle.y),
+        new Anchor(width, middle.y)
       ];
 
       return this.anchors;
