@@ -5,6 +5,7 @@ const MouseEvent = {
   MOUSEMOVE: 'mousemove',
   MOUSEOVER: 'mouseover',
   MOUSELEAVE: 'mouseleave',
+  CLICK: 'click'
 };
 
 /**
@@ -19,6 +20,6 @@ const ZIndex = {
 
 const Background = {
   LINEARGRADIENT: 'linear-gradient(45deg, black, transparent)'
-}
+};
 
-export { MouseEvent, ZIndex, Background};
+export { MouseEvent, ZIndex, Background };
