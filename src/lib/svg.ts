@@ -22,7 +22,7 @@ class Svg {
     y1: number,
     x2: number,
     y2: number,
-    scale: Function = Svg.setCubicBezierScale,
+    scale: Function = Svg.setCubicBezierScale
   ) {
     if (!Math.floor(Math.abs(x1 - x2)) || !Math.floor(Math.abs(y1 - y2))) {
       return `M ${x1} ${y1} L ${x2} ${y2}`;
@@ -76,6 +76,9 @@ class Element {
 
   setStroke(stroke) {
     this.stroke = stroke;
+    if (this.node) {
+      this.node.setAttribute('stroke', stroke);
+    }
   }
 
   bind(event: string, callback: Function) {
@@ -132,7 +135,7 @@ class Element {
     sweep: number,
     x: number,
     y: number,
-    absolute = false,
+    absolute = false
   ) {
     const temp = absolute
       ? `A ${rx} ${ry} ${angle} ${large} ${sweep} ${x} ${y}`

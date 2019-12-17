@@ -23,7 +23,7 @@ class SvgRenderer implements Renderer {
       height,
       viewBox: `0, 0, ${width}, ${height}`,
       xmlns: Svg.Namespace,
-      style: `position: absolute; z-index: ${ZIndex.SVG}`
+      style: `position: absolute;`
     });
 
     this.canvas = canvas;
