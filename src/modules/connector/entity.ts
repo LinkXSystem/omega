@@ -1,9 +1,10 @@
 import Svg, { Element } from '../../lib/svg';
 import UUID from '../../lib/uuid';
 import { Connector } from './interface';
+import { Line } from '../line';
 
 class InputConnector implements Connector {
-  element: Element;
+  element: Line;
 
   uuid: string;
   x: number;
@@ -23,11 +24,11 @@ class InputConnector implements Connector {
     this.connector = connector;
   }
 
-  getElement() {
+  getElement(): Line {
     return this.element;
   }
 
-  setElement(element: Element) {
+  setElement(element: Line) {
     if (element !== this.element) {
       this.element = element;
     }
@@ -37,13 +38,12 @@ class InputConnector implements Connector {
     const { connector } = this;
     this.x = x;
     this.y = y;
-    const curve = Svg.getCubicBezier(x, y, connector.x, connector.y);
-    this.element.setPath(curve).update();
+    this.element.refresh(x, y, connector.x, connector.y);
   }
 }
 
 class OutputConnector implements Connector {
-  element: Element;
+  element: Line;
 
   uuid: string;
   x: number;
@@ -61,11 +61,11 @@ class OutputConnector implements Connector {
     this.connector = connector;
   }
 
-  getElement() {
+  getElement(): Line {
     return this.element;
   }
 
-  setElement(element: Element) {
+  setElement(element: Line) {
     if (element !== this.element) {
       this.element = element;
     }
@@ -75,8 +75,7 @@ class OutputConnector implements Connector {
     const { connector } = this;
     this.x = x;
     this.y = y;
-    const curve = Svg.getCubicBezier(x, y, connector.x, connector.y);
-    this.element && this.element.setPath(curve).update();
+    this.element.refresh(x, y, connector.x, connector.y);
   }
 }
 

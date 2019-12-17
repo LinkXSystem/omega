@@ -1,7 +1,7 @@
-import { Element } from '../../lib/svg';
+import { Line } from '../line';
 
 interface Connector {
-  element: Element;
+  element: Line;
 
   uuid: string;
   x: number;
