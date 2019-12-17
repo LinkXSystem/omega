@@ -7,7 +7,9 @@ class EntityRelationLine extends Line {
 
   element: Element;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 }
 
 export default EntityRelationLine;

@@ -7,7 +7,9 @@ class OrthogonalLine extends Line {
 
   element: Element;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 }
 
 export default OrthogonalLine;

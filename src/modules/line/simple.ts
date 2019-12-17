@@ -7,7 +7,9 @@ class SimpleLine extends Line {
 
   element: Element;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 }
 
 export default SimpleLine;

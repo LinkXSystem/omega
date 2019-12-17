@@ -7,7 +7,9 @@ class IsometricLine extends Line {
 
   element: Element;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 }
 
 export default IsometricLine;
