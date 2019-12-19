@@ -8,26 +8,25 @@ import { AuxiliaryCircle } from '../auxiliary';
 class Circle extends Node {
   diameter: number;
 
-  constructor(diameter: number) {
+  constructor(diameter?: number) {
     super('circle');
 
-    this.diameter = diameter;
+    this.diameter = diameter || 100;
     this.auxiliary = new AuxiliaryCircle(this);
   }
 
   setStyleSheet() {
+    const { diameter, element } = this;
     const style = {
       position: 'absolute',
-      width: '100px',
-      height: '100px',
+      width: diameter,
+      height: diameter,
       borderRadius: '50%',
       background: Background.LINEARGRADIENT,
       boxShadow: '0 0 10px #b2b2b2'
     };
 
-    const { element } = this;
-
-    StyleSheet.compose(element, style);
+    StyleSheet.compose(element, StyleSheet.convert(style));
   }
 }
 
