@@ -1,4 +1,5 @@
 import Listener from '../../lib/listener';
+import _ from '../../lib/object';
 import EventEmitter from '../../engine/eventemitter';
 import Runtime from '../../engine/runtime';
 
@@ -18,13 +19,15 @@ class Workspace {
 
   renderer: SvgRenderer;
 
-  nodes: Array<Node>;
+  nodes: Map<string, Node>;
 
   constructor(container: HTMLElement, width?: number, height?: number) {
     this.container = container;
 
     this.emitter = new EventEmitter();
     this.runtime = new Runtime(this);
+
+    this.nodes = new Map();
 
     this.width = width || window.innerWidth;
     this.height = height || window.innerHeight;
@@ -50,6 +53,14 @@ class Workspace {
         this.emitter.emit(name, event);
       });
     });
+
+    // TODO: 点击事件转移至 Workspace 中, 关于 node 中的事件记录，需要考虑保存至栈中
+    Listener.bind(this.container, 'click', (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (_.isEmpty(target.dataset)) {
+        console.warn(target.dataset);
+      }
+    });
   }
 
   resize() {
@@ -67,12 +78,17 @@ class Workspace {
   }
 
   setNode(node: Node) {
-    this.nodes.push(node);
+    const { nodes } = this;
+    node.setWorkspace(this);
+    node.render();
+    nodes.set(node.uuid, node);
   }
 
   render() {
-    const { nodes } = this;
-    nodes.forEach(node => node.render());
+    const { nodes, container } = this;
+    Object.values(nodes).forEach(node => {
+      node.render();
+    });
   }
 }
 
