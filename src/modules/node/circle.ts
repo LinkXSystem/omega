@@ -1,7 +1,6 @@
 import Node from './node';
 
 import { Background } from '../../constants';
-import { Workspace } from '../workspace';
 import StyleSheet from '../../lib/stylesheet';
 
 import { AuxiliaryCircle } from '../auxiliary';
@@ -9,8 +8,8 @@ import { AuxiliaryCircle } from '../auxiliary';
 class Circle extends Node {
   diameter: number;
 
-  constructor(workspace: Workspace, diameter: number) {
-    super(workspace, 'circle');
+  constructor(diameter: number) {
+    super('circle');
 
     this.diameter = diameter;
     this.auxiliary = new AuxiliaryCircle(this);

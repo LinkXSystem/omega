@@ -1,4 +1,3 @@
-import { Workspace } from '../workspace';
 import { Rectangle } from '../node';
 import { CommentInterface } from '../comment';
 
@@ -15,10 +14,10 @@ export default class Comment implements CommentInterface {
 
   textarea: HTMLElement;
 
-  constructor(workspace: Workspace, width?: number, height?: number) {
+  constructor(width?: number, height?: number) {
     this.height = height || 180;
     this.width = width || 360;
-    this.container = new Rectangle(workspace, this.width, this.height, radius);
+    this.container = new Rectangle(this.width, this.height, radius);
   }
 
   created() {

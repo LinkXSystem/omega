@@ -29,18 +29,16 @@ abstract class Node implements NodeInterface {
 
   auxiliary: Auxiliary;
 
-  constructor(workspace: Workspace, type: string) {
+  constructor(type: string) {
     this.uuid = UUID.generate();
 
     this.isDraggable = false;
     this.type = type;
     this.isCouldConnect = true;
-    this.workspace = workspace;
 
     this.onDraggableStart = this.onDraggableStart.bind(this);
     this.onDrag = this.onDrag.bind(this);
     this.onDraggableFinish = this.onDraggableFinish.bind(this);
-    this.onClick = this.onClick.bind(this);
 
     this.handleRefreshConnects = this.handleRefreshConnects.bind(this);
   }
@@ -60,7 +58,6 @@ abstract class Node implements NodeInterface {
     Listener.bind(this.element, 'mouseup', this.onDraggableFinish);
     Listener.bind(this.element, 'mouseover', this.onDraggableFinish);
     Listener.bind(this.element, 'mouseleave', this.onDraggableFinish);
-    Listener.bind(this.element, 'click', this.onClick);
 
     Listener.bind(this.element, 'contextmenu', (event: MouseEvent) => {
       event.preventDefault();
@@ -87,6 +84,14 @@ abstract class Node implements NodeInterface {
     return this.element;
   }
 
+  getWorkspace() {
+    return this.workspace;
+  }
+
+  setWorkspace(workspace: Workspace) {
+    this.workspace = workspace;
+  }
+
   getShapeInfos() {
     return this.element.getBoundingClientRect();
   }
@@ -111,12 +116,11 @@ abstract class Node implements NodeInterface {
   }
 
   setCoordinate(x: number, y: number) {
-    const { element } = this;
-    StyleSheet.compose(element, {
-      left: `${x}px`,
-      top: `${y}px`
-    });
-    this.setShapeInfos();
+    // TODO: 需要考虑更新坐标的问题，是否考虑启用 translate 的方式，而非 setCoordinate
+    this.coordinate = {
+      x,
+      y
+    };
   }
 
   setConnector(connector: Connector) {
@@ -131,26 +135,6 @@ abstract class Node implements NodeInterface {
     this.connectors = this.connectors.filter(
       item => item.uuid !== connector.uuid
     );
-  }
-
-  onClick(event: MouseEvent) {
-    event.stopPropagation();
-
-    if (this.isDraggable) {
-      this.isDraggable = false;
-      return;
-    }
-
-    if (!this.isCouldConnect) {
-      return;
-    }
-
-    const { emitter } = this.workspace;
-    emitter.emit('node:connect', {
-      node: this
-    });
-
-    // this.auxiliary.setDisabled(true);
   }
 
   onDraggableStart(event: MouseEvent) {
@@ -207,6 +191,10 @@ abstract class Node implements NodeInterface {
   }
 
   render() {
+    if (!this.workspace) {
+      return console.error('The workspace is undefined !!!');
+    }
+
     const { container } = this.workspace;
     if (!this.element) {
       this.created();

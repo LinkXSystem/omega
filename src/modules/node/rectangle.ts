@@ -2,20 +2,14 @@ import Node from './node';
 
 import { Background } from '../../constants';
 import StyleSheet from '../../lib/stylesheet';
-import { Workspace } from '../workspace';
 
 class Rectangle extends Node {
   width: number;
   height: number;
   radius: number;
 
-  constructor(
-    workspace: Workspace,
-    width: number,
-    height: number,
-    radius: number
-  ) {
-    super(workspace, 'rectangle');
+  constructor(width: number, height: number, radius: number) {
+    super('rectangle');
 
     this.width = width;
     this.height = height;

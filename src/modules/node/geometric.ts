@@ -2,7 +2,6 @@ import Node from './node';
 
 import { Background } from '../../constants';
 import StyleSheet from '../../lib/stylesheet';
-import { Workspace } from '../workspace';
 import Svg, { Element } from '../../lib/svg';
 
 class Geometric extends Node {
@@ -11,12 +10,11 @@ class Geometric extends Node {
   path: string;
 
   constructor(
-    workspace: Workspace,
     width: number,
     height: number,
     path: string
   ) {
-    super(workspace, 'geometric');
+    super('geometric');
 
     this.width = width;
     this.height = height;

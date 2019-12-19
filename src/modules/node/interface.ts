@@ -21,6 +21,9 @@ interface NodeInterface {
   getShapeInfos: Function;
   setShapeInfos: Function;
 
+  getWorkspace: Function;
+  setWorkspace: Function;
+
   handleCreateElement: Function;
 
   render: Function;
