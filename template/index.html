@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Omega</title>
-    <style>
-      html,
-      body,
-      * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-      }
 
-      html,
-      body {
-        overflow: hidden;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="container"></div>
-    <omega-input-field></omega-input-field>
-    <script>
-      const container = document.getElementById('container');
-      const workspace = new Omega.Workspace(container);
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Omega</title>
+  <style>
+    html,
+    body,
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
 
-      const { width, height } = container.getBoundingClientRect();
+    html,
+    body {
+      overflow: hidden;
+    }
+  </style>
+</head>
 
-      new Array(2).fill('').forEach(() => {
-        const x = Math.floor(Math.random() * width);
-        const y = Math.floor(Math.random() * height);
-        const circle = new Omega.Circle(workspace);
-        circle.render();
-        circle.setCoordinate(x, y);
-      });
+<body>
+  <div id="container"></div>
+  <omega-input-field></omega-input-field>
+  <script>
+    const container = document.getElementById('container');
+    const workspace = new Omega.Workspace(container);
 
-      const rectangle = new Omega.Rectangle(workspace, 200, 100, 4);
-      rectangle.render();
-      rectangle.setCoordinate(200, 100);
+    const { width, height } = container.getBoundingClientRect();
 
-      const diamond = new Omega.Diamond(workspace, 100, 4);
-      diamond.render();
-      diamond.setCoordinate(300, 200);
-    </script>
-  </body>
+    new Array(2).fill('').forEach(() => {
+      const diameter = Math.floor(Math.random() * 100);
+      const x = Math.floor(Math.random() * width);
+      const y = Math.floor(Math.random() * height);
+      const circle = new Omega.Circle(diameter);
+      // circle.setCoordinate(x, y);
+      workspace.setNode(circle);
+    });
+
+    // const rectangle = new Omega.Rectangle(200, 100, 4);
+    // rectangle.render();
+    // rectangle.setCoordinate(200, 100);
+    // rectangle.setIsCouldConnect(false);
+
+    // const diamond = new Omega.Diamond(100, 4);
+    // diamond.render();
+    // diamond.setCoordinate(300, 200);
+
+    // const comment = new Omega.Comment(workspace);
+    // comment.render();
+    // comment.setCoordinate(width - 380, height - 200);
+  </script>
+</body>
+
 </html>

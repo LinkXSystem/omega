@@ -44,6 +44,7 @@ abstract class Node implements NodeInterface {
   }
 
   handleCreateElement(): HTMLElement | SVGElement {
+    // TODO: 需要设置 `use-select: none;`, 否则存在拓展异常
     return document.createElement('div');
   }
 
@@ -149,6 +150,7 @@ abstract class Node implements NodeInterface {
   }
 
   onDrag(event: MouseEvent) {
+    // TODO: 这个方法需要重构，严重缺陷，不能因为没有移动而触发位置变化
     event.stopPropagation();
 
     // TODO: 非规则的几何图形的 width 和 height 会导致计算偏差。需要重写获取宽高的方法
