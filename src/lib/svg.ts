@@ -17,6 +17,13 @@ class Svg {
     return offset / scale;
   }
 
+  static setAttributes(target: SVGElement, attributes: Object) {
+    Object.entries(attributes).forEach(attribute => {
+      const [key, name] = attribute;
+      target.setAttribute(key, name);
+    });
+  }
+
   static getCubicBezier(
     x1: number,
     y1: number,

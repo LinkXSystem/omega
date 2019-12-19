@@ -12,7 +12,9 @@ interface PatternAttribute {
 
 class SvgGrid {
   element: SVGElement;
-  pattern: SVGElement;
+
+  mask: SVGElement;
+  rect: SVGElement;
 
   uuid: string;
 
@@ -24,16 +26,26 @@ class SvgGrid {
     this.element = element || this.handleInitDefaultElement();
   }
 
-  handleInitPattern() {
-    const { config, element } = this;
-    this.pattern = SVG.createElement(
+  handleInitMask() {
+    const { config, element, uuid } = this;
+    this.mask = SVG.createElement(
       'pattern',
       Object.assign({}, config, {
-        id: 'zhi'
+        id: uuid
       })
     );
-    this.pattern.append(element);
-    return this.pattern;
+    this.mask.append(element);
+    return this.mask;
+  }
+
+  handleInitRect() {
+    const { uuid } = this;
+    this.rect = SVG.createElement('rect', {
+      x: 0,
+      y: 0,
+      fill: `url(#${uuid})`
+    });
+    return this.rect;
   }
 
   handleInitDefaultElement() {
@@ -48,19 +60,23 @@ class SvgGrid {
   }
 
   render(renderer: SvgRenderer) {
-    let { pattern, uuid } = this;
-    if (!pattern) {
-      pattern = this.handleInitPattern();
-    }
     const { width, height } = renderer;
-    const rect = SVG.createElement('rect', {
-      x: 0,
-      y: 0,
+    let { mask, uuid, rect } = this;
+
+    if (!mask) {
+      mask = this.handleInitMask();
+      renderer.render(mask);
+    }
+
+    if (!rect) {
+      rect = this.handleInitRect();
+    }
+
+    SVG.setAttributes(rect, {
       width,
-      height,
-      fill: `url(#zhi)`
+      height
     });
-    renderer.render(pattern);
+
     renderer.render(rect);
   }
 }

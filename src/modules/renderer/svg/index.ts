@@ -1,6 +1,6 @@
 import Renderer from '../interface';
 
-import Svg from '../../../lib/svg';
+import SVG from '../../../lib/svg';
 import { ZIndex } from '../../../constants';
 
 import { SvgGrid } from '../../grid';
@@ -18,11 +18,11 @@ class SvgRenderer implements Renderer {
   constructor(workspace: Workspace) {
     const { width, height } = workspace.container.getBoundingClientRect();
 
-    const canvas = Svg.createElement('svg', {
+    const canvas = SVG.createElement('svg', {
       width,
       height,
       viewBox: `0, 0, ${width}, ${height}`,
-      xmlns: Svg.Namespace,
+      xmlns: SVG.Namespace,
       style: `position: absolute;`
     });
 
@@ -49,8 +49,15 @@ class SvgRenderer implements Renderer {
 
   resize(container: HTMLElement) {
     const { width, height } = container.getBoundingClientRect();
-    this.width = width;
+    SVG.setAttributes(this.canvas, {
+      width,
+      height,
+      viewBox: `0, 0, ${width}, ${height}`
+    });
+
     this.height = height;
+    this.width = width;
+    this.grid.render(this);
   }
 
   render(element: Element) {
