@@ -54,11 +54,15 @@ abstract class Node implements NodeInterface {
     this.element.dataset['type'] = this.type;
     this.element.dataset['uuid'] = this.uuid;
 
+    StyleSheet.compose(this.element, {
+      'user-select': 'none'
+    });
+
     // TODO：未来需要考虑鼠标右键的问题
     Listener.bind(this.element, 'mousedown', this.onDraggableStart);
     Listener.bind(this.element, 'mouseup', this.onDraggableFinish);
     Listener.bind(this.element, 'mouseover', this.onDraggableFinish);
-    Listener.bind(this.element, 'mouseleave', this.onDraggableFinish);
+    // Listener.bind(this.element, 'mouseleave', this.onDraggableFinish);
 
     Listener.bind(this.element, 'contextmenu', (event: MouseEvent) => {
       event.preventDefault();
