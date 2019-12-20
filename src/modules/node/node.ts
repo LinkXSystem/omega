@@ -154,23 +154,23 @@ abstract class Node implements NodeInterface {
   }
 
   onDrag(event: MouseEvent) {
-    // TODO: 这个方法需要重构，严重缺陷，不能因为没有移动而触发位置变化
     event.stopPropagation();
 
     // TODO: 非规则的几何图形的 width 和 height 会导致计算偏差。需要重写获取宽高的方法
-    const { width, height } = this.getShapeInfos();
-    const { x, y } = event;
+    const { top, left } = this.getShapeInfos();
+    const { movementX, movementY } = event;
 
     this.isDraggable = true;
 
-    this.coordinate = {
-      x,
-      y
-    };
+    // TODO: 如何更新坐标
+    // this.coordinate = {
+    //   x,
+    //   y
+    // };
 
     StyleSheet.compose(this.element, {
-      top: `${y - height / 2}px`,
-      left: `${x - width / 2}px`
+      top: `${top + movementY}px`,
+      left: `${left + movementX}px`
     });
 
     this.handleRefreshConnects();
