@@ -55,11 +55,51 @@ class Workspace {
     });
 
     // TODO: 点击事件转移至 Workspace 中, 关于 node 中的事件记录，需要考虑保存至栈中
+    // Listener.bind(this.container, 'click', (event: MouseEvent) => {
+    //   const target = event.target as HTMLElement;
+    //   if (_.isEmpty(target.dataset)) {
+    //     const { emitter, nodes } = this;
+    //     const { uuid } = target.dataset;
+    //     const node = nodes.get(uuid);
+    //     emitter.emit('node:connect', {
+    //       node
+    //     });
+    //   }
+    // });
+
+    let position;
+
+    // Listener.bind(this.container, MouseEvent.MOUSEDOWN, (event: MouseEvent) => {
+    //   const target = event.target as HTMLElement;
+    //   if (_.isEmpty(target.dataset)) {
+    //     position = target.getBoundingClientRect();
+    //   }
+    // });
+
+    // Listener.bind(this.container, MouseEvent.MOUSEUP, (event: MouseEvent) => {
+    //   const target = event.target as HTMLElement;
+    //   if (_.isEmpty(target.dataset)) {
+    //     let temp = target.getBoundingClientRect();
+    //     if (temp.top !== position.top || temp.left !== position.left) {
+    //       return;
+    //     }
+
+    //     console.warn('xxx');
+
+    //     const { emitter, nodes } = this;
+    //     const { uuid } = target.dataset;
+    //     const node = nodes.get(uuid);
+    //     emitter.emit('node:connect', {
+    //       node
+    //     });
+    //   }
+    // });
+
+    let date;
+
     Listener.bind(this.container, 'click', (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (_.isEmpty(target.dataset)) {
-        console.warn(target.dataset);
-      }
+      console.log(event, Date.now() - date);
+      date = Date.now();
     });
   }
 

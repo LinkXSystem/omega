@@ -143,7 +143,7 @@ abstract class Node implements NodeInterface {
   }
 
   onDraggableStart(event: MouseEvent) {
-    event.stopPropagation();
+    // event.stopPropagation();
 
     StyleSheet.compose(this.element, {
       position: 'absolute',
@@ -154,7 +154,7 @@ abstract class Node implements NodeInterface {
   }
 
   onDrag(event: MouseEvent) {
-    event.stopPropagation();
+    // event.stopPropagation();
 
     // TODO: 非规则的几何图形的 width 和 height 会导致计算偏差。需要重写获取宽高的方法
     const { top, left } = this.getShapeInfos();
@@ -177,7 +177,7 @@ abstract class Node implements NodeInterface {
   }
 
   onDraggableFinish(event: MouseEvent) {
-    event.stopPropagation();
+    // event.stopPropagation();
 
     StyleSheet.compose(this.element, {
       zIndex: ZIndex.DEFAULT

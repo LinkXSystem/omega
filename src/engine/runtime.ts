@@ -83,11 +83,11 @@ class Runtime {
   }
 
   handleCancelConnector(event: MouseEvent | null, isForce: boolean = false) {
-    if (isForce || (Boolean(this.input) && Boolean(this.output))) {
-      const line = this.input.getElement();
-      this.workspace.renderer.remove(line.toXml());
-      this.handleClearConnector();
-    }
+    // if (isForce || (Boolean(this.input) && Boolean(this.output))) {
+    //   const line = this.input.getElement();
+    //   this.workspace.renderer.remove(line.toXml());
+    //   this.handleClearConnector();
+    // }
   }
 }
 
