@@ -1,6 +1,5 @@
 import { Box } from '../common';
-import { MouseEvent } from '../../constants';
-import Listener from '../../lib/listener';
+import { Mouse } from '../../constants';
 
 class Anchor {
   element: Box;
@@ -10,7 +9,7 @@ class Anchor {
 
   color: string;
 
-  constructor(x: number, y: number, color: string = '#ffffff') {
+  constructor(x: number, y: number, color = '#ffffff') {
     this.color = color;
 
     this.x = x;
@@ -26,26 +25,16 @@ class Anchor {
       .setPosition('absolute')
       .setCoordinate(x, y)
       .setStyle({
-        background: '#ffffff',
+        'box-sizing': 'border-box',
         width: 10,
         height: 10,
         border: '2px solid #1a73e8',
         'border-radius': '50%',
-        transform: ' translate(-50%, -50%)',
-        transition: 'all .3s ease-in-out'
-      });
-
-    Listener.bind(
-      this.element.toXml(),
-      MouseEvent.MOUSEOVER,
-      this.onMouseover.bind(this)
-    );
-
-    Listener.bind(
-      this.element.toXml(),
-      MouseEvent.MOUSELEAVE,
-      this.onMouseleave.bind(this)
-    );
+        background: '#ffffff',
+        transform: ' translate(-50%, -50%)'
+      })
+      .bind(Mouse.MOUSEOVER, this.onMouseover)
+      .bind(Mouse.MOUSELEAVE, this.onMouseleave);
   }
 
   setCoordinate(x: number, y: number) {
@@ -70,7 +59,7 @@ class Anchor {
   }
 
   render(container: HTMLElement) {
-    container.appendChild(this.element.toXml());
+    this.element.setContainer(container);
   }
 }
 
