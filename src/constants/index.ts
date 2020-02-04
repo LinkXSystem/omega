@@ -1,4 +1,4 @@
-const MouseEvent = {
+const Mouse = {
   MOUSEDOWN: 'mousedown',
   MOUSEUP: 'mouseup',
   MOUSEENTER: 'mouseenter',
@@ -22,4 +22,4 @@ const Background = {
   LINEARGRADIENT: 'linear-gradient(45deg, black, transparent)'
 };
 
-export { MouseEvent, ZIndex, Background };
+export { Mouse, ZIndex, Background };
