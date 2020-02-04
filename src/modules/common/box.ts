@@ -1,14 +1,15 @@
 import StyleSheet from '../../lib/stylesheet';
+import Listener from '../../lib/listener';
 
 export default class Box {
-  container: HTMLElement;
+  container: HTMLElement | SVGElement;
   element: HTMLElement;
 
-  constructor(tag: string = 'div') {
+  constructor(tag = 'div') {
     this.element = document.createElement(tag);
   }
 
-  setContainer(container: HTMLElement) {
+  setContainer(container: HTMLElement | SVGElement): Box {
     if (this.container !== container) {
       const o = this.container || container;
       const n = (this.container = container);
@@ -17,6 +18,16 @@ export default class Box {
       n.appendChild(this.element);
     }
 
+    return this;
+  }
+
+  bind(event: string, callback: any): Box {
+    Listener.bind(this.element, event, callback);
+    return this;
+  }
+
+  unbind(event: string, callback: any): Box {
+    Listener.unbind(this.element, event, callback);
     return this;
   }
 
@@ -29,7 +40,7 @@ export default class Box {
     return this.element.style.position;
   }
 
-  setPosition(position: string) {
+  setPosition(position: string): Box {
     this.setStyle({
       position
     });
@@ -37,7 +48,7 @@ export default class Box {
     return this;
   }
 
-  setCoordinate(x: number, y: number) {
+  setCoordinate(x: number, y: number): Box {
     this.setStyle({
       top: y,
       left: x
@@ -46,7 +57,7 @@ export default class Box {
     return this;
   }
 
-  setStyle(style: Object) {
+  setStyle(style: Object): Box {
     const { element } = this;
 
     StyleSheet.compose(element, StyleSheet.convert(style));
