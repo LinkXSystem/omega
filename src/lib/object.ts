@@ -1,5 +1,5 @@
 function isEmpty(target: Object): boolean {
-  return Boolean(Object.keys(target).length);
+  return Boolean(!Object.keys(target).length);
 }
 
 export default {

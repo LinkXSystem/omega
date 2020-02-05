@@ -1,10 +1,8 @@
-import { MouseEvent } from '../../constants';
+import { Mouse } from '../../constants';
 
 import { LineInterface } from './interface';
 import { Element } from '../../lib/svg';
-import Listener from '../../lib/listener';
 import Renderer from '../renderer/interface';
-import { SvgRenderer } from '../renderer';
 
 /**
  * @description 目前 Line 的类型均是参考 draw.io 的类型定义。
@@ -28,7 +26,7 @@ export default class Line implements LineInterface {
   handleRegisterEvent() {
     const { element } = this;
 
-    element.bind('click', this.handleClick.bind(this));
+    element.bind(Mouse.CLICK, this.handleClick.bind(this));
   }
 
   handleClick() {
