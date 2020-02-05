@@ -89,7 +89,7 @@ abstract class Node implements NodeInterface {
     return this.element;
   }
 
-  getWorkspace() {
+  getWorkspace(): Workspace {
     return this.workspace;
   }
 
@@ -97,19 +97,8 @@ abstract class Node implements NodeInterface {
     this.workspace = workspace;
   }
 
-  getShapeInfos() {
+  getShapeInfos(): DOMRect | ClientRect {
     return this.element.getBoundingClientRect();
-  }
-
-  setShapeInfos() {
-    this.rect = this.element.getBoundingClientRect();
-
-    const { top, left, width, height } = this.rect as DOMRect;
-
-    this.coordinate = {
-      x: left + width / 2,
-      y: top + height / 2
-    };
   }
 
   setStyleSheet() {
@@ -117,7 +106,16 @@ abstract class Node implements NodeInterface {
   }
 
   getCoordinate() {
-    return this.coordinate;
+    // TODO: 目前的实现需要实时计算，但是需要考虑可否优化
+
+    this.rect = this.element.getBoundingClientRect();
+
+    const { top, left, width, height } = this.rect as DOMRect;
+
+    return {
+      x: left + width / 2,
+      y: top + height / 2
+    };
   }
 
   setCoordinate(x: number, y: number) {
@@ -142,7 +140,15 @@ abstract class Node implements NodeInterface {
     );
   }
 
-  onDraggableStart(event: MouseEvent) {
+  setAuxiliaryStatus() {
+    if (this.auxiliary) {
+      const { disabled } = this.auxiliary;
+      console.warn(disabled);
+      this.auxiliary.setDisabled(!disabled);
+    }
+  }
+
+  onDraggableStart() {
     // event.stopPropagation();
 
     StyleSheet.compose(this.element, {
@@ -162,12 +168,6 @@ abstract class Node implements NodeInterface {
 
     this.isDraggable = true;
 
-    // TODO: 如何更新坐标
-    // this.coordinate = {
-    //   x,
-    //   y
-    // };
-
     StyleSheet.compose(this.element, {
       top: `${top + movementY}px`,
       left: `${left + movementX}px`
@@ -176,7 +176,7 @@ abstract class Node implements NodeInterface {
     this.handleRefreshConnects();
   }
 
-  onDraggableFinish(event: MouseEvent) {
+  onDraggableFinish() {
     // event.stopPropagation();
 
     StyleSheet.compose(this.element, {
@@ -187,9 +187,10 @@ abstract class Node implements NodeInterface {
   }
 
   handleRefreshConnects() {
-    const { connectors, coordinate } = this;
+    const { connectors } = this;
     if (connectors && connectors.length) {
-      const { x, y } = coordinate;
+      const { x, y } = this.getCoordinate();
+
       connectors.forEach(connector => {
         connector.refresh(x, y);
       });
@@ -208,7 +209,6 @@ abstract class Node implements NodeInterface {
     container.appendChild(this.element);
 
     this.setStyleSheet();
-    this.setShapeInfos();
 
     this.mounted();
   }

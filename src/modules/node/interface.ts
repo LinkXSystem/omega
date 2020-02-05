@@ -1,7 +1,6 @@
 import { Workspace } from '../workspace';
 import { Point } from '../common';
 
-import { Connector } from '../connector';
 interface NodeInterface {
   uuid: string;
   type: string;
@@ -19,7 +18,8 @@ interface NodeInterface {
   setCoordinate: Function;
 
   getShapeInfos: Function;
-  setShapeInfos: Function;
+
+  setAuxiliaryStatus: Function;
 
   getWorkspace: Function;
   setWorkspace: Function;
