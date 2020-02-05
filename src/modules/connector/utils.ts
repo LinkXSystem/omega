@@ -1,5 +1,5 @@
-import { Element } from '../../lib/svg';
 import { Connector } from '.';
+
 import { Renderer } from '../renderer';
 import { CurvedLine } from '../line';
 

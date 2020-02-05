@@ -2,19 +2,29 @@ import Svg, { Element } from '../../lib/svg';
 import Line from './line';
 
 class CurvedLine extends Line {
-  coords: Array<Number>;
+  coords: Array<number>;
 
   uuid: string;
   type: string;
 
   element: Element;
 
+  isActivate: boolean;
+
   constructor() {
     super('curved');
+
+    this.isActivate = false;
   }
 
   handleClick() {
-    this.element.setStroke('#2878ff');
+    const { isActivate, element } = this;
+
+    const color = isActivate ? '#c9c9c9' : '#2878ff';
+
+    element.setStroke(color);
+
+    this.isActivate = !isActivate;
   }
 
   refresh(x1: number, y1: number, x2: number, y2: number) {
