@@ -1,10 +1,9 @@
-import Renderer from '../interface';
+import Renderer from './interface';
 
-import SVG from '../../../lib/svg';
-import { ZIndex } from '../../../constants';
+import SVG from '../../lib/svg';
 
-import { SvgGrid } from '../../grid';
-import { Workspace } from '../../workspace';
+import { SvgGrid } from '../grid';
+import { Workspace } from '../workspace';
 
 class SvgRenderer implements Renderer {
   canvas: SVGElement;

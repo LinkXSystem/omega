@@ -1,5 +1,5 @@
-import Renderer from '../interface';
-import { ZIndex } from '../../../constants';
+import Renderer from './interface';
+import { ZIndex } from '../../constants';
 
 class CanvasRenderer implements Renderer {
   canvas: HTMLCanvasElement;
@@ -37,8 +37,6 @@ class CanvasRenderer implements Renderer {
   }
 
   refresh() {
-    const { width, height } = this;
-
     console.warn('it needs re-implement !');
   }
 
@@ -56,7 +54,9 @@ class CanvasRenderer implements Renderer {
     requestAnimationFrame(this.render.bind(this));
   }
 
-  remove() {}
+  remove() {
+    console.warn('it needs re-implement !');
+  }
 }
 
 export default CanvasRenderer;
