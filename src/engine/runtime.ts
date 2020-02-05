@@ -1,5 +1,6 @@
+import { Mouse, NodeSignalConstants } from '../constants';
+
 import {
-  Connector,
   InputConnector,
   OutputConnector,
   ConnectorUtils
@@ -7,7 +8,6 @@ import {
 import { Node } from '../modules/node';
 import EventEmitter from './eventemitter';
 
-import { MouseEvent } from '../constants';
 import { Workspace } from '../modules/workspace';
 
 class Runtime {
@@ -33,22 +33,23 @@ class Runtime {
   }
 
   register() {
-    this.emitter.on('node:connect', this.handleBuildConnector);
-
-    this.emitter.on(MouseEvent.MOUSEMOVE, this.handleRefreshConnector);
-
-    this.emitter.on(MouseEvent.MOUSEDOWN, this.handleCancelConnector);
+    this.emitter.on(NodeSignalConstants.CONNECT, this.handleBuildConnector);
+    this.emitter.on(NodeSignalConstants.DISCONNECT, this.handleCancelConnector);
+    this.emitter.on(Mouse.MOUSEMOVE, this.handleRefreshConnector);
   }
 
-  handleClearConnector() {
-    this.output = this.input = null;
-    this.node = null;
+  handleClearConnector(isClearConnect = false) {
+    if (isClearConnect) {
+      this.node.delConnector(this.input);
+    }
+
+    this.output = this.input = this.node = null;
   }
 
   handleBuildConnector(data: { node: Node }) {
     const { node } = data;
 
-    if (!Boolean(this.input)) {
+    if (!this.input) {
       const { x, y } = node.getCoordinate();
       this.node = node;
       this.input = new InputConnector(x, y);
@@ -56,9 +57,9 @@ class Runtime {
       return;
     }
 
-    if (Boolean(this.input)) {
+    if (this.input) {
       if (node === this.node) {
-        return this.handleCancelConnector(null, true);
+        return this.handleCancelConnector();
       }
 
       const { x, y } = node.getCoordinate();
@@ -72,7 +73,7 @@ class Runtime {
   handleRefreshConnector(event: MouseEvent) {
     const { x, y } = event;
 
-    if (Boolean(this.input) && !Boolean(this.output)) {
+    if (this.input && !this.output) {
       this.output = new OutputConnector(x, y);
       ConnectorUtils.compose(this.input, this.output, this.workspace.renderer);
     }
@@ -82,12 +83,12 @@ class Runtime {
     }
   }
 
-  handleCancelConnector(event: MouseEvent | null, isForce: boolean = false) {
-    // if (isForce || (Boolean(this.input) && Boolean(this.output))) {
-    //   const line = this.input.getElement();
-    //   this.workspace.renderer.remove(line.toXml());
-    //   this.handleClearConnector();
-    // }
+  handleCancelConnector() {
+    if (this.input && this.output) {
+      const line = this.input.getElement();
+      this.workspace.renderer.remove(line.toXml());
+      this.handleClearConnector(true);
+    }
   }
 }
 
