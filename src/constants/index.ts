@@ -1,3 +1,5 @@
+import { NodeSignalConstants } from './emitter';
+
 const Mouse = {
   MOUSEDOWN: 'mousedown',
   MOUSEUP: 'mouseup',
@@ -22,4 +24,9 @@ const Background = {
   LINEARGRADIENT: 'linear-gradient(45deg, black, transparent)'
 };
 
-export { Mouse, ZIndex, Background };
+const RendererType = {
+  SVG: 'svg',
+  CANVAS: 'canvas'
+};
+
+export { Mouse, ZIndex, Background, RendererType, NodeSignalConstants };
