@@ -27,12 +27,15 @@
   <omega-input-field></omega-input-field>
   <script>
     const container = document.getElementById('container');
-    const workspace = new Omega.Workspace(container);
+    const workspace = new Omega.inject({
+      type: 'svg',
+      container
+    });
 
     const { width, height } = container.getBoundingClientRect();
 
     new Array(2).fill('').forEach(() => {
-      const diameter = Math.floor(Math.random() * 100);
+      const diameter = Math.floor(Math.random() * 100 + 200);
       const x = Math.floor(Math.random() * width);
       const y = Math.floor(Math.random() * height);
       const circle = new Omega.Circle(diameter);
@@ -40,10 +43,10 @@
       workspace.setNode(circle);
     });
 
-    const rectangle = new Omega.Rectangle(375, 667, 4);
+    // const rectangle = new Omega.Rectangle(375, 667, 4);
     // rectangle.setCoordinate(200, 100);
-    workspace.setNode(rectangle);
-    rectangle.setIsCouldConnect(false);
+    // workspace.setNode(rectangle);
+    // rectangle.setIsCouldConnect(false);
 
     // const diamond = new Omega.Diamond(100, 4);
     // diamond.render();
