@@ -1,10 +1,10 @@
-import Workspace from './workspace';
+import Workspace, { WorkspaceConfiguration } from './workspace';
 
 class CanvasWorkspace extends Workspace {
   container: HTMLElement;
 
-  constructor(container: HTMLElement, width?: number, height?: number) {
-    super(container);
+  constructor(configuration: WorkspaceConfiguration) {
+    super(configuration);
   }
 }
 

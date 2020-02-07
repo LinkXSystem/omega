@@ -1,5 +1,5 @@
 import CanvasWorkspace from './canvas';
 import SvgWorkspace from './svg';
-import Workspace from './workspace';
+import Workspace, { WorkspaceConfiguration } from './workspace';
 
-export { Workspace, SvgWorkspace, CanvasWorkspace };
+export { Workspace, WorkspaceConfiguration, SvgWorkspace, CanvasWorkspace };

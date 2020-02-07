@@ -1,26 +1,31 @@
 import { InputConnector, OutputConnector } from './modules/connector';
-import { SvgWorkspace, CanvasWorkspace } from './modules/workspace';
+import {
+  SvgWorkspace,
+  CanvasWorkspace,
+  WorkspaceConfiguration
+} from './modules/workspace';
 import { Node, Circle, Rectangle, Diamond } from './modules/node';
 import { Comment } from './modules/comment';
 import { RendererType } from './constants';
 
-interface EditorOption {
-  container: HTMLElement;
+interface Configuration {
+  workspace: WorkspaceConfiguration;
   type: string;
 }
 
-function inject(option: EditorOption) {
-  const { container, type } = option;
-
+function inject(configuration: Configuration) {
+  const config = configuration.workspace;
   let workspace;
 
-  switch (type) {
+  switch (configuration.type) {
     case RendererType.SVG:
-      workspace = new SvgWorkspace(container);
+      workspace = new SvgWorkspace(config);
       break;
     case RendererType.CANVAS:
+      workspace = new CanvasWorkspace(config);
+      break;
     default:
-      workspace = new CanvasWorkspace(container);
+      throw new Error('Your must select the type of renderer');
   }
 
   return workspace;

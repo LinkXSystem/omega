@@ -1,4 +1,4 @@
-import Workspace from './workspace';
+import Workspace, { WorkspaceConfiguration } from './workspace';
 
 import Listener from '../../lib/listener';
 import _ from '../../lib/object';
@@ -13,11 +13,8 @@ class SvgWorkspace extends Workspace {
   renderer: SvgRenderer;
   gesture: SvgGesture;
 
-  constructor(container: HTMLElement, width?: number, height?: number) {
-    super(container, width, height);
-
-    this.width = width || window.innerWidth;
-    this.height = height || window.innerHeight;
+  constructor(configuration: WorkspaceConfiguration) {
+    super(configuration);
 
     this.initial();
 
@@ -45,15 +42,11 @@ class SvgWorkspace extends Workspace {
 
   resize() {
     // const { container, renderer } = this;
-
     // let width, height;
-
     // this.width = width = window.innerWidth;
     // this.height = height = window.innerHeight;
-
     // container.style.width = `${width}px`;
     // container.style.height = `${height}px`;
-
     // renderer.resize(container);
   }
 
