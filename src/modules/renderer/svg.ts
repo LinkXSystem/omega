@@ -1,6 +1,7 @@
 import Renderer from './interface';
 
 import SVG from '../../lib/svg';
+import Draggable from '../../lib/draggable';
 
 import { SvgGrid } from '../grid';
 import { Workspace } from '../workspace';
@@ -13,6 +14,8 @@ class SvgRenderer implements Renderer {
   workspace: Workspace;
 
   isRender: boolean;
+
+  draggable: Draggable;
 
   constructor(workspace: Workspace) {
     const { width, height } = workspace.container.getBoundingClientRect();
@@ -42,8 +45,11 @@ class SvgRenderer implements Renderer {
 
   init() {
     const { workspace, canvas, grid } = this;
+    const { container } = workspace;
     grid.render(this);
-    workspace.container.appendChild(canvas);
+    container.appendChild(canvas);
+
+    this.draggable = new Draggable(canvas, container);
   }
 
   resize(container: HTMLElement) {

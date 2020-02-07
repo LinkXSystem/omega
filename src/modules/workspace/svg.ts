@@ -2,8 +2,6 @@ import Workspace from './workspace';
 
 import Listener from '../../lib/listener';
 import _ from '../../lib/object';
-import EventEmitter from '../../engine/eventemitter';
-import Runtime from '../../engine/runtime';
 
 import { SvgRenderer } from '../renderer';
 import { Node } from '../node';
@@ -16,7 +14,7 @@ class SvgWorkspace extends Workspace {
   gesture: SvgGesture;
 
   constructor(container: HTMLElement, width?: number, height?: number) {
-    super(container);
+    super(container, width, height);
 
     this.width = width || window.innerWidth;
     this.height = height || window.innerHeight;
@@ -46,17 +44,17 @@ class SvgWorkspace extends Workspace {
   }
 
   resize() {
-    const { container, renderer } = this;
+    // const { container, renderer } = this;
 
-    let width, height;
+    // let width, height;
 
-    this.width = width = window.innerWidth;
-    this.height = height = window.innerHeight;
+    // this.width = width = window.innerWidth;
+    // this.height = height = window.innerHeight;
 
-    container.style.width = `${width}px`;
-    container.style.height = `${height}px`;
+    // container.style.width = `${width}px`;
+    // container.style.height = `${height}px`;
 
-    renderer.resize(container);
+    // renderer.resize(container);
   }
 
   setNode(node: Node) {
