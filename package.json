@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "",
     "dev": "node scripts/dev.js",
+    "lint": "eslint -c .eslintrc src/**/**.ts",
     "test": "jest",
     "tool": "live-server tools --port 3016"
   },
@@ -12,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/LinkXSystem/omega.git"
   },
-  "author": "",
+  "author": "zhi",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/LinkXSystem/omega/issues"
