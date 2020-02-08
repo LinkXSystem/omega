@@ -61,7 +61,7 @@ class SvgGrid {
 
   render(renderer: SvgRenderer) {
     const { width, height } = renderer;
-    let { mask, uuid, rect } = this;
+    let { mask, rect } = this;
 
     if (!mask) {
       mask = this.handleInitMask();

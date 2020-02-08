@@ -1,19 +1,19 @@
 import Listener from '../lib/listener';
 
 class Svg {
-  static Namespace: string = 'http://www.w3.org/2000/svg';
+  static Namespace = 'http://www.w3.org/2000/svg';
 
-  static createElement(name: string, attributes: Object = {}): SVGElement {
-    const element = document.createElementNS(Svg.Namespace, name);
+  static createElement(name: string, attributes = {}): SVGElement {
+    const element = document.createElementNS(Svg.Namespace, name) as SVGElement;
     Object.entries(attributes).forEach(attribute => {
       const [name, value] = attribute;
-      element.setAttribute(name, value);
+      element.setAttribute(name, value as string);
     });
 
-    return <SVGAElement>element;
+    return element;
   }
 
-  static setCubicBezierScale(offset: number, scale: number = 1.5) {
+  static setCubicBezierScale(offset: number, scale = 1.5) {
     return offset / scale;
   }
 
@@ -44,10 +44,12 @@ class Svg {
           offset}, ${y1} ${x1}, ${y1}`;
   }
 
-  static getQuadraticBezier(x1: number, y1: number, x2: number, y2: number) {}
+  static getQuadraticBezier(x1: number, y1: number, x2: number, y2: number) {
+    console.warn('unimplemented !!!!', x1, y1, x2, y2);
+  }
 }
 
-class Element {
+export class Element {
   node: SVGElement;
   path: string;
   fill: string;
@@ -55,7 +57,7 @@ class Element {
   width: number;
   stroke: string;
 
-  constructor(path: string = '', fill = 'none') {
+  constructor(path = '', fill = 'none') {
     this.path = path;
     this.fill = fill;
   }
@@ -96,7 +98,7 @@ class Element {
     Listener.unbind(this.node, event, callback);
   }
 
-  lineTo(x: number, y: number, absolute: Boolean = false) {
+  lineTo(x: number, y: number, absolute = false) {
     const temp = absolute ? `L ${x}, ${y}` : `l ${x}, ${y}`;
 
     this.path = ''.concat(this.path, ' ', temp);
@@ -104,7 +106,7 @@ class Element {
     return this;
   }
 
-  moveTo(x: number, y: number, absolute: Boolean = true) {
+  moveTo(x: number, y: number, absolute = true) {
     const temp = absolute ? `M ${x}, ${y}` : `m ${x}, ${y}`;
 
     this.path = ''.concat(this.path, ' ', temp);
@@ -112,7 +114,7 @@ class Element {
     return this;
   }
 
-  vertical(height: number, absolute: Boolean = false) {
+  vertical(height: number, absolute = false) {
     const temp = absolute ? `V ${height}` : `v ${height}`;
 
     this.path = ''.concat(this.path, ' ', temp);
@@ -120,7 +122,7 @@ class Element {
     return this;
   }
 
-  horizontal(width: number, absolute: Boolean = false) {
+  horizontal(width: number, absolute = false) {
     const temp = absolute ? `V ${width}` : `v ${width}`;
 
     this.path = ''.concat(this.path, ' ', temp);
@@ -169,7 +171,7 @@ class Element {
   }
 
   toXml() {
-    if (!Boolean(this.node)) {
+    if (!this.node) {
       const { path, fill, width, stroke } = this;
 
       this.node = Svg.createElement('path', {
@@ -185,5 +187,3 @@ class Element {
 }
 
 export default Svg;
-
-export { Element };
