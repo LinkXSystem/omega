@@ -1,4 +1,4 @@
-import Renderer from './interface';
+import { Renderer } from './interface';
 import { ZIndex } from '../../constants';
 
 class CanvasRenderer implements Renderer {

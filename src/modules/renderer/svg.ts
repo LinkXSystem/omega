@@ -1,4 +1,4 @@
-import Renderer from './interface';
+import { Renderer } from './interface';
 
 import SVG from '../../lib/svg';
 import Draggable from '../../lib/draggable';
