@@ -1,6 +1,6 @@
 import { Element } from '../../lib/svg';
 
-interface LineInterface {
+export interface LineInterface {
   uuid: string;
   type: string;
 
@@ -10,5 +10,3 @@ interface LineInterface {
   refresh: Function;
   render: Function;
 }
-
-export { LineInterface };

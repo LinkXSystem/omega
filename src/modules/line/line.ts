@@ -2,14 +2,14 @@ import { Mouse } from '../../constants';
 
 import { LineInterface } from './interface';
 import { Element } from '../../lib/svg';
-import Renderer from '../renderer/interface';
+import { Renderer } from '../renderer';
 
 /**
  * @description 目前 Line 的类型均是参考 draw.io 的类型定义。
  */
 
-export default class Line implements LineInterface {
-  coords: Array<Number>;
+export default abstract class Line implements LineInterface {
+  coords: Array<number>;
 
   uuid: string;
   type: string;
@@ -33,9 +33,7 @@ export default class Line implements LineInterface {
     console.warn('please rewrite the method !!!');
   }
 
-  refresh(x1: number, y1: number, x2: number, y2: number) {
-    console.warn('please rewrite the method !!!');
-  }
+  abstract refresh(x1: number, y1: number, x2: number, y2: number);
 
   // TODO: 未定义如何渲染
   render(renderer: Renderer) {
