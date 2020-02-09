@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pointer event</title>
+    <style>
+      html,
+      body,
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        overflow: hidden;
+      }
+
+      canvas {
+        touch-action: none;
+      }
+    </style>
+    <script></script>
+  </head>
+  <body onload="init()">
+    <canvas id="canvas">
+      Canvas element not supported.
+    </canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const context = canvas.getContext('2d');
+
+      const LastPosition = new Object();
+      const colours = ['red', 'green', 'blue', 'yellow', 'black'];
+
+      init();
+
+      function init() {
+        if (window.PointerEvent) {
+          canvas.addEventListener(
+            'pointerdown',
+            function() {
+              canvas.addEventListener('pointermove', draw, false);
+            },
+            false
+          );
+          canvas.addEventListener('pointerup', handleEndPointer, false);
+        }
+      }
+
+      function draw(event) {
+        const id = event.pointerId;
+
+        if (LastPosition[id]) {
+          context.beginPath();
+          context.moveTo(LastPosition[id].x, LastPosition[id].y);
+          context.lineTo(event.pageX, event.pageY);
+          context.strokeStyle = colours[id % 5];
+          context.stroke();
+        }
+
+        // Store last point
+        LastPosition[id] = { x: event.pageX, y: event.pageY };
+      }
+
+      function handleEndPointer(event) {
+        const id = event.pointerId;
+        delete LastPosition[id];
+        canvas.removeEventListener('pointermove', draw, false);
+      }
+    </script>
+  </body>
+</html>
