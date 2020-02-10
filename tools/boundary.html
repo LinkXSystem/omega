@@ -37,21 +37,46 @@
           this.canvas = canvas;
           this.context = context;
 
+          this.handleProxy = this.handleProxy.bind(this);
+          this.handleClick = this.handleClick.bind(this);
+          this.handleMove = this.handleMove.bind(this);
+
           this.listener();
         }
 
         listener() {
           const { canvas, context } = this;
-          this.canvas.addEventListener('mousemove', event => {
+          this.canvas.addEventListener(
+            'click',
+            this.handleProxy(this.handleClick)
+          );
+          this.canvas.addEventListener(
+            'mousemove',
+            this.handleProxy(this.handleMove)
+          );
+        }
+
+        handleProxy(callback) {
+          const { context } = this;
+
+          return event => {
             const { offsetX, offsetY } = event;
 
             context.beginPath();
             context.rect(10, 10, 200, 200);
 
             if (context.isPointInPath(offsetX, offsetY)) {
-              console.log('=======___========');
+              callback(event);
             }
-          });
+          };
+        }
+
+        handleClick(event) {
+          console.log('=======|_|======');
+        }
+
+        handleMove(event) {
+          console.log('=======|V|======');
         }
 
         render() {
@@ -75,7 +100,7 @@
 
       let center = {
         x: width / 2,
-        y: height / 2,
+        y: height / 2
       };
 
       const context = canvas.getContext('2d');
@@ -104,7 +129,7 @@
 
         center = {
           x: width / 2,
-          y: height / 2,
+          y: height / 2
         };
       });
     </script>
