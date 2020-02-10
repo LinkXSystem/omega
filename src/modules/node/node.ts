@@ -108,13 +108,12 @@ abstract class Node implements NodeInterface {
   getCoordinate() {
     // TODO: 目前的实现需要实时计算，但是需要考虑可否优化
 
-    this.rect = this.element.getBoundingClientRect();
-
-    const { top, left, width, height } = this.rect as DOMRect;
+    const { offsetLeft, offsetTop } = this.element as HTMLElement;
+    const { width, height } = this.element.getBoundingClientRect() as DOMRect;
 
     return {
-      x: left + width / 2,
-      y: top + height / 2
+      x: offsetLeft + width / 2,
+      y: offsetTop + height / 2
     };
   }
 
@@ -164,14 +163,14 @@ abstract class Node implements NodeInterface {
 
     // TODO: 非规则的几何图形的 width 和 height 会导致计算偏差。需要重写获取宽高的方法
     // TODO: 坐标系统需要重新设计
-    const { top, left } = this.getShapeInfos();
+    const { offsetTop, offsetLeft } = this.element as HTMLElement;
     const { movementX, movementY } = event;
 
     this.isDraggable = true;
 
     StyleSheet.compose(this.element, {
-      top: `${top + movementY}px`,
-      left: `${left + movementX}px`
+      top: `${offsetTop + movementY}px`,
+      left: `${offsetLeft + movementX}px`
     });
 
     this.handleRefreshConnects();
