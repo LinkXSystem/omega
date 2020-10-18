@@ -39,13 +39,33 @@ class Svg {
 
     return x1 < x2
       ? `M ${x1}, ${y1} C ${x1 + offset}, ${y1} ${x2 -
-          offset}, ${y2} ${x2}, ${y2}`
+      offset}, ${y2} ${x2}, ${y2}`
       : `M ${x2}, ${y2} C ${x2 + offset}, ${y2} ${x1 -
-          offset}, ${y1} ${x1}, ${y1}`;
+      offset}, ${y1} ${x1}, ${y1}`;
   }
 
   static getQuadraticBezier(x1: number, y1: number, x2: number, y2: number) {
     console.warn('unimplemented !!!!', x1, y1, x2, y2);
+  }
+
+  static getStraightLine(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number
+  ) {
+    return `M ${x1} ${y1} L ${x2} ${y2}`;
+  }
+
+  // TODO: 需要实现圆角化处理
+  static getSimpleLine(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number
+  ) {
+    const m = (x2 - x1) / 2;
+    return `M ${x1} ${y1} L ${x1 + m} ${y1} L ${x1 + m} ${y2} L ${x2} ${y2}`;
   }
 }
 

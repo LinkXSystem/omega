@@ -1,4 +1,3 @@
-import Svg, { Element } from '../../lib/svg';
 import UUID from '../../lib/uuid';
 import { Connector } from './interface';
 import { Line } from '../line';
