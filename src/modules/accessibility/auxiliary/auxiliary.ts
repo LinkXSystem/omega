@@ -1,9 +1,9 @@
 import AuxiliaryInterface from './interface';
 import Anchor from './anchor';
-import { Node } from '../node';
-import { Box } from '../common';
+import { Node } from '../../node';
+import { Box } from '../../common';
 
-import { Mouse } from '../../constants';
+import { Mouse } from '../../../constants';
 
 abstract class Auxiliary implements AuxiliaryInterface {
   anchors: Array<Anchor>;

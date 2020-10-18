@@ -8,7 +8,7 @@ import { Node } from '../node';
 
 import { SvgGesture } from '../gesture';
 import { Mouse } from '../../constants';
-import { AuxiliaryLine } from '../auxiliary';
+import { AuxiliaryLine } from '../accessibility/auxiliary';
 
 class SvgWorkspace extends Workspace {
   renderer: SvgRenderer;

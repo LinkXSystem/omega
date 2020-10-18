@@ -1,6 +1,6 @@
-import { Workspace } from "../workspace";
-import { Box } from "../common";
-import { Position } from '../../constants';
+import { Workspace } from "../../workspace";
+import { Box } from "../../common";
+import { Position } from '../../../constants';
 
 export default class AuxiliaryLine {
     workspace: Workspace

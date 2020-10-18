@@ -1,10 +1,10 @@
 import { Properties } from 'csstype';
 
-import { Rectangle } from '../node';
-import { CommentInterface } from '../comment';
+import { Rectangle } from '../../node';
+import { CommentInterface } from '.';
 
-import Listener from '../../lib/listener';
-import StyleSheet from '../../lib/stylesheet';
+import Listener from '../../../lib/listener';
+import StyleSheet from '../../../lib/stylesheet';
 
 const radius = 2;
 

@@ -5,7 +5,7 @@ import {
   WorkspaceConfiguration
 } from './modules/workspace';
 import { Node, Circle, Rectangle, Diamond } from './modules/node';
-import { Comment } from './modules/comment';
+import { Comment } from './modules/accessibility/comment';
 import { RendererType } from './constants';
 
 interface Configuration {

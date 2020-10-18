@@ -1,5 +1,5 @@
-import { Box } from '../common';
-import { Mouse } from '../../constants';
+import { Box } from '../../common';
+import { Mouse } from '../../../constants';
 
 class Anchor {
   element: Box;

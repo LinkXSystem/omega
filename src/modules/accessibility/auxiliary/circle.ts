@@ -1,9 +1,9 @@
 import Auxiliary from './auxiliary';
 import Anchor from './anchor';
-import { Node } from '../node';
-import { Box } from '../common';
+import { Node } from '../../node';
+import { Box } from '../../common';
 
-import { Mouse } from '../../constants';
+import { Mouse } from '../../../constants';
 
 class AuxiliaryCircle extends Auxiliary {
   anchors: Array<Anchor>;
