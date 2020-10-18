@@ -1,18 +1,21 @@
+import { Properties } from 'csstype';
+
 import Node from './node';
 
-import { Background } from '../../constants';
+import { Position } from '../../constants';
 import StyleSheet from '../../lib/stylesheet';
 
 class Diamond extends Node {
   width: number;
   height: number;
-  radius: number;
 
-  constructor(width: number, radius: number) {
+  style: Properties;
+
+  constructor(width: number, style = {}) {
     super('diamond');
 
     this.width = this.height = width;
-    this.radius = radius;
+    this.style = style;
   }
 
   getShapeInfos() {
@@ -25,19 +28,16 @@ class Diamond extends Node {
   }
 
   setStyleSheet() {
-    const { width, height, radius } = this;
-    const style = {
-      position: 'absolute',
-      width: `${width}px`,
-      height: `${height}px`,
-      'border-radius': `${radius}px`,
-      transform: 'rotate(45deg)',
-      background: Background.LINEARGRADIENT,
-      boxShadow: '0 0 10px #b2b2b2'
-    };
+    const { element, width, height, style } = this;
 
-    const { element } = this;
-    StyleSheet.compose(element, style);
+    const cache = Object.assign({}, style, {
+      position: Position.ABSOLUTE,
+      width,
+      height,
+      transform: 'rotate(45deg)',
+    });
+
+    StyleSheet.compose(element, StyleSheet.convert(cache));
   }
 }
 

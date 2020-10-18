@@ -1,35 +1,36 @@
+import { Properties } from 'csstype';
+
 import Node from './node';
 
-import { Background } from '../../constants';
+import { Position } from '../../constants';
 import StyleSheet from '../../lib/stylesheet';
 
 class Rectangle extends Node {
   width: number;
   height: number;
-  radius: number;
 
-  constructor(width: number, height: number, radius: number) {
+  style: Properties;
+
+  constructor(width: number, height: number, style = {}) {
     super('rectangle');
 
     this.width = width;
     this.height = height;
-    this.radius = radius;
+
+    this.style = style;
+
   }
 
   setStyleSheet() {
-    const { width, height, radius } = this;
-    const style = {
-      position: 'absolute',
-      width: `${width}px`,
-      height: `${height}px`,
-      'border-radius': `${radius}px`,
-      background: Background.LINEARGRADIENT,
-      boxShadow: '0 0 10px #b2b2b2'
-    };
+    const { element, width, height, style } = this;
 
-    const { element } = this;
+    const cache = Object.assign({}, style, {
+      position: Position.ABSOLUTE,
+      width,
+      height,
+    });
 
-    StyleSheet.compose(element, style);
+    StyleSheet.compose(element, StyleSheet.convert(cache));
   }
 }
 
