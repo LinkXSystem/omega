@@ -1,4 +1,4 @@
-import { Element } from '../../lib/svg';
+import { Element } from '../../../lib/svg';
 
 export interface LineInterface {
   uuid: string;

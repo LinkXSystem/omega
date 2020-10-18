@@ -1,12 +1,12 @@
 import { Connector } from '.';
 
 import { Renderer } from '../renderer';
-import { LineUtils } from '../line';
+import { LineUtils } from '../graphical/line';
 
 class ConnectorUtils {
-  static compose(input: Connector, output: Connector, renderer: Renderer) {
+  static compose(input: Connector, output: Connector, renderer: Renderer, type: string) {
     // TODO: 需要替换成新的 Line 模块，注意从配置传入，或 runtime 获取
-    const line = input.getElement() || LineUtils.getLineInstancebyType('simple');
+    const line = input.getElement() || LineUtils.getLineInstancebyType(type);
     line.render(renderer);
 
     input.setConnector(output);

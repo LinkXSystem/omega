@@ -1,6 +1,6 @@
-import SVG from '../../lib/svg';
-import { SvgRenderer } from '../renderer';
-import UUID from '../../lib/uuid';
+import SVG from '../../../lib/svg';
+import { SvgRenderer } from '../../renderer';
+import UUID from '../../../lib/uuid';
 
 interface PatternAttribute {
   x: number;

@@ -1,4 +1,4 @@
-import { Element } from '../../lib/svg';
+import { Element } from '../../../lib/svg';
 import Shape from './shape';
 
 abstract class Rectangle extends Shape {

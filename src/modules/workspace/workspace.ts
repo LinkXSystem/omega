@@ -10,6 +10,14 @@ export interface WorkspaceConfiguration {
 
   width: number;
   height: number;
+
+  // TODO: 考虑以 module 方式来治理
+  connection: {
+    line: string;
+  };
+
+  grid: {
+  };
 }
 
 abstract class Workspace {

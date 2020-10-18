@@ -1,3 +1,5 @@
+import { Properties } from 'csstype';
+
 import { Rectangle } from '../node';
 import { CommentInterface } from '../comment';
 
@@ -23,7 +25,7 @@ export default class Comment implements CommentInterface {
   created() {
     const { container } = this;
 
-    let textarea = document.createElement('textarea');
+    const textarea = document.createElement('textarea');
     this.textarea = textarea;
     this.setStyleSheet();
     this.handleRegisterEvent();
@@ -35,10 +37,10 @@ export default class Comment implements CommentInterface {
     this.container.setCoordinate(x, y);
   }
 
-  setStyleSheet(styles?: Object) {
+  setStyleSheet(styles?: Properties) {
     const { textarea } = this;
 
-    let temp = styles || {
+    const temp = styles || {
       width: '100%',
       height: '100%',
       border: '0px',
@@ -62,7 +64,7 @@ export default class Comment implements CommentInterface {
   }
 
   render() {
-    let { container, textarea } = this;
+    const { container, textarea } = this;
 
     if (!textarea) {
       this.created();

@@ -3,7 +3,7 @@ import { Renderer } from './interface';
 import SVG from '../../lib/svg';
 import Draggable from '../../lib/draggable';
 
-import { SvgGrid } from '../grid';
+import { SvgGrid } from '../graphical/grid';
 import { Workspace } from '../workspace';
 
 class SvgRenderer implements Renderer {

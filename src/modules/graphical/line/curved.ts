@@ -1,4 +1,4 @@
-import SVG, { Element } from '../../lib/svg';
+import SVG, { Element } from '../../../lib/svg';
 import Line from './line';
 
 class CurvedLine extends Line {

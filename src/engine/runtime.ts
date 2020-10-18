@@ -64,7 +64,7 @@ class Runtime {
 
       const { x, y } = node.getCoordinate();
       this.output = new OutputConnector(x, y);
-      ConnectorUtils.compose(this.input, this.output, this.workspace.renderer);
+      ConnectorUtils.compose(this.input, this.output, this.workspace.renderer, this.workspace.configuration.connection.line);
       node.setConnector(this.output);
       this.handleClearConnector();
     }
@@ -75,7 +75,7 @@ class Runtime {
 
     if (this.input && !this.output) {
       this.output = new OutputConnector(x, y);
-      ConnectorUtils.compose(this.input, this.output, this.workspace.renderer);
+      ConnectorUtils.compose(this.input, this.output, this.workspace.renderer, this.workspace.configuration.connection.line);
     }
 
     if (this.output) {

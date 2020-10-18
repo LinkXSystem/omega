@@ -1,4 +1,4 @@
-import { Line } from '../line';
+import { Line } from '../graphical/line';
 
 interface Connector {
   element: Line;

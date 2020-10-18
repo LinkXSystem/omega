@@ -1,8 +1,8 @@
-import { Mouse } from '../../constants';
+import { Mouse } from '../../../constants';
 
 import { LineInterface } from './interface';
-import { Element } from '../../lib/svg';
-import { Renderer } from '../renderer';
+import { Element } from '../../../lib/svg';
+import { Renderer } from '../../renderer';
 
 /**
  * @description 目前 Line 的类型均是参考 draw.io 的类型定义。

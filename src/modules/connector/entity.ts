@@ -1,6 +1,6 @@
 import UUID from '../../lib/uuid';
 import { Connector } from './interface';
-import { Line } from '../line';
+import { Line } from '../graphical/line';
 
 class InputConnector implements Connector {
   element: Line;

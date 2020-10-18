@@ -32,6 +32,7 @@ class SvgWorkspace extends Workspace {
     this.renderer = new SvgRenderer(this);
     this.gesture = new SvgGesture(this);
 
+    // TODO: 需要在配置中提供用于设置 辅助线 的配置项
     this._handleInitialAuxiliaryLine();
   }
 

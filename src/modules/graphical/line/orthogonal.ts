@@ -1,7 +1,7 @@
-import { Element } from '../../lib/svg';
+import { Element } from '../../../lib/svg';
 import Line from './line';
 
-class EntityRelationLine extends Line {
+class OrthogonalLine extends Line {
   uuid: string;
   type: string;
 
@@ -16,4 +16,4 @@ class EntityRelationLine extends Line {
   }
 }
 
-export default EntityRelationLine;
+export default OrthogonalLine;
