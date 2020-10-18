@@ -24,9 +24,13 @@ const Background = {
   LINEARGRADIENT: 'linear-gradient(45deg, black, transparent)'
 };
 
+const Position = {
+  ABSOLUTE: 'absolute'
+};
+
 const RendererType = {
   SVG: 'svg',
   CANVAS: 'canvas'
 };
 
-export { Mouse, ZIndex, Background, RendererType, NodeSignalConstants };
+export { Mouse, ZIndex, Background, Position, RendererType, NodeSignalConstants };

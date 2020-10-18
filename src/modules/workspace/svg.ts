@@ -8,26 +8,66 @@ import { Node } from '../node';
 
 import { SvgGesture } from '../gesture';
 import { Mouse } from '../../constants';
+import { AuxiliaryLine } from '../auxiliary';
 
 class SvgWorkspace extends Workspace {
   renderer: SvgRenderer;
   gesture: SvgGesture;
+  auxiliarys: Array<AuxiliaryLine>
 
   constructor(configuration: WorkspaceConfiguration) {
     super(configuration);
 
-    this.initial();
+    this._initial();
 
     this.listener();
   }
 
-  initial() {
+  // TODO：初始化环境
+  _initial() {
     const { container, width, height } = this;
     container.style.width = `${width}px`;
     container.style.height = `${height}px`;
 
     this.renderer = new SvgRenderer(this);
     this.gesture = new SvgGesture(this);
+
+    this._handleInitialAuxiliaryLine();
+  }
+
+  _handleEvent(name: string, event: MouseEvent) {
+    switch (name) {
+      case Mouse.MOUSEMOVE:
+        this._handleUpdateAuxiliaryLine(event)
+        break;
+      default:
+
+    }
+  }
+
+  // TODO: 辅助线
+  _handleInitialAuxiliaryLine() {
+    this.auxiliarys = new Array<AuxiliaryLine>();
+
+    const x = new AuxiliaryLine(this, 'x');
+    x.render();
+    this.auxiliarys.push(x);
+
+    const y = new AuxiliaryLine(this, 'y');
+    y.render();
+    this.auxiliarys.push(y);
+  }
+
+  _handleUpdateAuxiliaryLine(event: MouseEvent) {
+    // TODO: 需要优化
+    if (this.auxiliarys.length) {
+      const [x, y] = this.auxiliarys;
+      const { clientX, clientY } = event;
+
+      x.element.setCoordinate(clientX, 0);
+      y.element.setCoordinate(0, clientY);
+    }
+
   }
 
   listener() {
@@ -36,6 +76,8 @@ class SvgWorkspace extends Workspace {
     Object.values(Mouse).forEach(name => {
       Listener.bind(this.container, name, (event: MouseEvent) => {
         this.emitter.emit(name, event);
+
+        this._handleEvent(name, event);
       });
     });
   }
