@@ -14,11 +14,10 @@ class Rectangle extends Node {
   constructor(width: number, height: number, style = {}) {
     super('rectangle');
 
-    this.width = width;
-    this.height = height;
-
     this.style = style;
 
+    this.width = width;
+    this.height = height;
   }
 
   setStyleSheet() {

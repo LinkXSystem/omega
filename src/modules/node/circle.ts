@@ -5,8 +5,6 @@ import Node from './node';
 import { Position } from '../../constants';
 import StyleSheet from '../../lib/stylesheet';
 
-import { AuxiliaryCircle } from '../auxiliary';
-
 class Circle extends Node {
   diameter: number;
   style: Properties;
@@ -16,7 +14,6 @@ class Circle extends Node {
 
     this.diameter = diameter;
     this.style = style;
-    this.auxiliary = new AuxiliaryCircle(this);
   }
 
   setStyleSheet() {

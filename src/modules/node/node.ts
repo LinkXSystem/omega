@@ -10,8 +10,6 @@ import StyleSheet from '../../lib/stylesheet';
 
 import { Connector } from '../connector';
 
-import { Auxiliary } from '../auxiliary';
-
 abstract class Node implements NodeInterface {
   uuid: string;
   type: string;
@@ -26,8 +24,6 @@ abstract class Node implements NodeInterface {
   isCouldConnect: boolean;
 
   connectors: Array<Connector>;
-
-  auxiliary: Auxiliary;
 
   constructor(type: string) {
     this.uuid = UUID.generate();
@@ -137,14 +133,6 @@ abstract class Node implements NodeInterface {
     this.connectors = this.connectors.filter(
       item => item.uuid !== connector.uuid
     );
-  }
-
-  setAuxiliaryStatus() {
-    if (this.auxiliary) {
-      const { disabled } = this.auxiliary;
-      console.warn(disabled);
-      this.auxiliary.setDisabled(!disabled);
-    }
   }
 
   onDraggableStart() {

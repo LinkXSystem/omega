@@ -19,8 +19,6 @@ interface NodeInterface {
 
   getShapeInfos: Function;
 
-  setAuxiliaryStatus: Function;
-
   getWorkspace: Function;
   setWorkspace: Function;
 
