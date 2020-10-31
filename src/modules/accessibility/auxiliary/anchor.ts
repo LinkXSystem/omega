@@ -7,6 +7,9 @@ class Anchor {
   x: number;
   y: number;
 
+  width: number;
+  height: number;
+
   color: string;
 
   constructor(x: number, y: number, color = '#ffffff') {
@@ -15,26 +18,27 @@ class Anchor {
     this.x = x;
     this.y = y;
 
+    this.width = 8;
+    this.height = 8;
+
     this.init();
   }
 
   init() {
-    const { x, y } = this;
+    const { x, y, width, height } = this;
     this.element = new Box();
     this.element
       .setPosition('absolute')
       .setCoordinate(x, y)
       .setStyle({
         'box-sizing': 'border-box',
-        width: 10,
-        height: 10,
+        width,
+        height,
         border: '2px solid #1a73e8',
         'border-radius': '50%',
         background: '#ffffff',
         transform: ' translate(-50%, -50%)'
-      })
-      .bind(Mouse.MOUSEOVER, this.onMouseover)
-      .bind(Mouse.MOUSELEAVE, this.onMouseleave);
+      });
   }
 
   setCoordinate(x: number, y: number) {
