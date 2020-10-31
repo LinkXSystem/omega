@@ -1,6 +1,6 @@
 import { NodeInterface } from './interface';
 
-import { ZIndex } from '../../constants';
+import { ZIndex, NodeSymbol } from '../../constants';
 import { Workspace } from '../workspace';
 import { Point } from '../common';
 
@@ -49,12 +49,13 @@ abstract class Node implements NodeInterface {
 
     this.element.dataset['type'] = this.type;
     this.element.dataset['uuid'] = this.uuid;
+    this.element.dataset['symbol'] = NodeSymbol;
 
     StyleSheet.compose(this.element, {
       'user-select': 'none'
     });
 
-    // TODO：未来需要考虑鼠标右键的问题
+    // TODO：未来需要考虑鼠标右键的问题, 是否需要由总线来进行分发
     Listener.bind(this.element, 'mousedown', this.onDraggableStart);
     Listener.bind(this.element, 'mouseup', this.onDraggableFinish);
     Listener.bind(this.element, 'mouseover', this.onDraggableFinish);
@@ -119,6 +120,12 @@ abstract class Node implements NodeInterface {
       x,
       y
     };
+
+    StyleSheet.compose(this.element, {
+      position: 'absolute',
+      top: y,
+      left: x,
+    });
   }
 
   setConnector(connector: Connector) {

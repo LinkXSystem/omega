@@ -9,6 +9,11 @@ export default class Box {
     this.element = document.createElement(tag);
   }
 
+  setDataProperty(key, value) {
+    const { element } = this;
+    element.dataset[key] = value;
+  }
+
   setContainer(container: HTMLElement | SVGElement): Box {
     if (this.container !== container) {
       const o = this.container || container;
@@ -33,7 +38,7 @@ export default class Box {
 
   getRect() {
     const { element } = this;
-    return element.getBoundingClientRect;
+    return element.getBoundingClientRect();
   }
 
   getPosition() {

@@ -10,11 +10,11 @@ class StyleSheet {
   ];
 
   static compose(element: HTMLElement | SVGElement, style: Object) {
-    const entries = Object.entries(style);
+    const entries = Object.entries(StyleSheet.convert(style));
     entries.forEach(entry => {
       // Maybe that is not valid method, solve No.7015 problem !
       const [name, value] = entry;
-      element.style[name as any] = value;
+      element.style[name] = value;
     });
   }
 
@@ -37,7 +37,7 @@ class StyleSheet {
     return temp;
   }
 
-  static parser(styles: string) {}
+  static parser(styles: string) { }
 }
 
 export default StyleSheet;

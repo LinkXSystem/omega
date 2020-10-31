@@ -34,6 +34,12 @@ class AuxiliaryRectangle {
     }
   }
 
+  display(status: boolean) {
+    this.element.setStyle({
+      visibility: status ? 'inherit' : 'hidden',
+    })
+  }
+
   render() {
     if (this.isRender) {
       return;
@@ -91,6 +97,8 @@ class AuxiliaryRectangle {
     mb.setCoordinate(width / 2, height - offset);
     lb.setCoordinate(-offset, height - offset);
     lm.setCoordinate(-offset, height / 2);
+
+    this.display(true);
   }
 }
 
