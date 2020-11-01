@@ -15,6 +15,6 @@ jobs:
 
       - name: install the library
         run: npm install
-  
+
       - name: build the libraay
-        run: yarn run 
+        run: npm run build
