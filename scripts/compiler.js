@@ -15,7 +15,9 @@ const target = Object.assign({}, configuration, {
     path: OutputOfDistFolder,
     filename: `${library}.min.js`,
     library: library,
+    libraryExport: "default",
     libraryTarget: 'umd',
+    // 以 window 为 global 对象的实现只针对浏览器实现
     globalObject: 'window',
   }
 });
