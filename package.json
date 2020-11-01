@@ -6,10 +6,17 @@
   "scripts": {
     "build": "webpack --config configs/webpack.prod.conf.js",
     "build:package": "node scripts/inquirer.js",
+    "release": "",
     "dev": "node scripts/dev.js",
     "lint": "eslint -c .eslintrc src/**/**.ts",
     "test": "jest",
-    "tool": "live-server tools --port 3016"
+    "tool": "live-server tools --port 3016",
+    "version": "npm version patch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
   "repository": {
     "type": "git",
@@ -31,6 +38,7 @@
     "eslint": "^6.2.2",
     "glob": "^7.1.6",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.3.0",
     "inquirer": "^7.3.3",
     "jest": "^24.9.0",
     "live-server": "^1.2.1",
