@@ -62,3 +62,5 @@ typings/
 
 # ignore the file of lock
 yarn.lock
+
+dist

@@ -1,1 +1,8 @@
 
+# ignore the configs folder
+
+configs
+
+dist
+
+scripts
