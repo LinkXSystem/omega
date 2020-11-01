@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config configs/webpack.prod.conf.js",
+    "build:package": "node scripts/inquirer.js",
     "dev": "node scripts/dev.js",
     "lint": "eslint -c .eslintrc src/**/**.ts",
     "test": "jest",
@@ -15,7 +16,7 @@
     "url": "git+https://github.com/LinkXSystem/omega.git"
   },
   "author": "zhi",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/LinkXSystem/omega/issues"
   },
@@ -24,10 +25,13 @@
     "@types/jest": "^24.0.18",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
+    "child-process-promise": "^2.2.1",
     "clean-webpack-plugin": "^3.0.0",
     "csstype": "^3.0.3",
     "eslint": "^6.2.2",
+    "glob": "^7.1.6",
     "html-webpack-plugin": "^3.2.0",
+    "inquirer": "^7.3.3",
     "jest": "^24.9.0",
     "live-server": "^1.2.1",
     "terser-webpack-plugin": "^2.3.4",
