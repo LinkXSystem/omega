@@ -17,7 +17,7 @@ class Svg {
     return offset / scale;
   }
 
-  static setAttributes(target: SVGElement, attributes: Object) {
+  static setAttributes(target: SVGElement, attributes: Record<string, any>) {
     Object.entries(attributes).forEach(attribute => {
       const [key, name] = attribute;
       target.setAttribute(key, name);
@@ -197,7 +197,7 @@ export class Element {
       this.node = Svg.createElement('path', {
         d: path,
         stroke: stroke || '#c9c9c9',
-        fill: 'none',
+        fill,
         'stroke-width': width || '5'
       });
     }

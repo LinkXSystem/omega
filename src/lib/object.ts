@@ -1,4 +1,4 @@
-function isEmpty(target: Object): boolean {
+function isEmpty(target: Record<string, any>): boolean {
   return Boolean(!Object.keys(target).length);
 }
 

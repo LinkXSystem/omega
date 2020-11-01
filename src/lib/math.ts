@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const rotate = function(points: Array<number>, angle: number): Array<number> {
   const [i, j] = points;
   const sin = Math.sin(angle);
@@ -14,6 +15,7 @@ class Vector {
   y: number;
   z: number;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {}
 
   set(option: { x: number; y: number; z: number }) {
@@ -22,10 +24,13 @@ class Vector {
     this.z = option.z || 0;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   rotateX() {}
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   rotateY() {}
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   rotateZ() {}
 }
 

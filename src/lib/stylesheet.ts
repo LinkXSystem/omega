@@ -9,7 +9,7 @@ class StyleSheet {
     'border-radius',
   ];
 
-  static compose(element: HTMLElement | SVGElement, style: Object) {
+  static compose(element: HTMLElement | SVGElement, style: Record<string, any>) {
     const entries = Object.entries(StyleSheet.convert(style));
     entries.forEach(entry => {
       // Maybe that is not valid method, solve No.7015 problem !
@@ -18,11 +18,12 @@ class StyleSheet {
     });
   }
 
-  static convert(style: Object, unit = 'px') {
+  static convert(style: Record<string, any>, unit = 'px') {
     const entries = Object.entries(style);
-    let temp = Object.create(null);
+    const temp = Object.create(null);
 
     entries.forEach(entry => {
+      // eslint-disable-next-line prefer-const
       let [name, value] = entry;
       if (
         StyleSheet.NumberOfStyle.includes(name) &&
@@ -37,6 +38,7 @@ class StyleSheet {
     return temp;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   static parser(styles: string) { }
 }
 

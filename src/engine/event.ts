@@ -2,5 +2,6 @@
 export default class Event {
   type: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {}
 }

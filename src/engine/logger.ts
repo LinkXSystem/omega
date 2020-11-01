@@ -5,6 +5,7 @@ class Logger {
     Logger.prototype.prefix = prefix;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   static debug() {}
 
   static info(message: string) {
