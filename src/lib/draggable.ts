@@ -2,8 +2,6 @@ import Listener from './listener';
 import StyleSheet from './stylesheet';
 import { Mouse } from '../constants';
 
-const BODY = window.document.body;
-
 //TODO: 需要优化
 class Draggable {
   target: HTMLElement | SVGElement;
@@ -53,7 +51,7 @@ class Draggable {
     this.x = clientX;
     this.y = clientY;
 
-    Listener.bind(BODY, Mouse.MOUSEMOVE, this.onDrag);
+    Listener.bind(target, Mouse.MOUSEMOVE, this.onDrag);
     //TODO：是否也应该登记到 body 中
     Listener.bind(target, Mouse.MOUSEUP, this.onDraggableFinish);
   }
@@ -87,7 +85,7 @@ class Draggable {
   onDraggableFinish() {
     const { target } = this;
 
-    Listener.unbind(BODY, Mouse.MOUSEMOVE, this.onDrag);
+    Listener.unbind(target, Mouse.MOUSEMOVE, this.onDrag);
     Listener.unbind(target, Mouse.MOUSEUP, this.onDraggableFinish);
   }
 }
