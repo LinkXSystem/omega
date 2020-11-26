@@ -54,10 +54,17 @@ export default class Box {
   }
 
   setCoordinate(x: number, y: number): Box {
+    // TODO: CSS 优化，需要重新实现
+    // this.setStyle({
+    //   willChange: 'transform',
+    //   transform: `translate(${x}px, ${y}px)`
+    // });
+
     this.setStyle({
       top: y,
       left: x
     });
+
 
     return this;
   }

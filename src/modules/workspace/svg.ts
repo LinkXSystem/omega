@@ -45,8 +45,10 @@ class SvgWorkspace extends Workspace {
         this._handleUpdatedAuxiliaryLine(event)
         break;
       case Mouse.MOUSEDOWN:
-        this._handleUpdatedAuxiliaryMask(event);
+        // this._handleUpdatedAuxiliaryMask(event);
+        break;
       default:
+        console.warn('unimplement feature');
     }
   }
 
@@ -66,11 +68,13 @@ class SvgWorkspace extends Workspace {
   _handleUpdatedAuxiliaryLine(event: MouseEvent) {
     // TODO: 需要优化
     if (this.auxiliarys.length) {
+      const delta = 4;
+
       const [x, y] = this.auxiliarys;
       const { clientX, clientY } = event;
 
-      x.element.setCoordinate(clientX, 0);
-      y.element.setCoordinate(0, clientY);
+      x.element.setCoordinate(clientX + delta, 0);
+      y.element.setCoordinate(0, clientY + delta);
     }
 
   }

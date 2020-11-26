@@ -23,19 +23,19 @@ export default class AuxiliaryLine {
             // X 轴辅助线
             case 'x':
                 this.element.setStyle({
-                    position: Position.ABSOLUTE,
+                    position: Position.FIXED,
                     width: i,
                     height: window.innerHeight,
-                    background: 'red'
+                    borderLeft: '1px dashed #dddddd'
                 });
                 break;
             // Y 轴辅助线
             case 'y':
                 this.element.setStyle({
-                    position: Position.ABSOLUTE,
+                    position: Position.FIXED,
                     width: window.innerWidth,
                     height: i,
-                    background: 'red'
+                    borderTop: '1px dashed #dddddd'
                 });
                 break;
         }
