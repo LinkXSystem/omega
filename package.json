@@ -6,12 +6,12 @@
   "scripts": {
     "build": "webpack --config configs/webpack.prod.conf.js",
     "build:package": "node scripts/inquirer.js",
+    "version": "npm version patch",
     "release": "",
     "dev": "node scripts/dev.js",
     "lint": "eslint -c .eslintrc src/**/**.ts",
     "test": "jest",
-    "tool": "live-server tools --port 3016",
-    "version": "npm version patch"
+    "tool": "live-server tools --port 3016"
   },
   "husky": {
     "hooks": {

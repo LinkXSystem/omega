@@ -7,5 +7,5 @@
     "target": "es2015",
     "lib": ["es2015", "dom"]
   },
-  "include": ["src"]
+  "include": ["src", "extras/index.ts", "extras/constants", "extras/engine", "extras/lib", "extras/modules"]
 }

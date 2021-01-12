@@ -48,7 +48,7 @@ class SvgWorkspace extends Workspace {
         // this._handleUpdatedAuxiliaryMask(event);
         break;
       default:
-        console.warn('unimplement feature');
+        // console.warn('unimplement feature');
     }
   }
 

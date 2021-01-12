@@ -64,3 +64,5 @@ typings/
 yarn.lock
 
 dist
+
+.DS_Store
