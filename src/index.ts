@@ -1,3 +1,13 @@
-import { Omega } from './omega';
+import { Omega, OmegaOption } from './omega';
+import { Anchor, AnchorPosition, Container } from './modules';
 
-export default Omega;
+function inject(option: OmegaOption) {
+  return new Omega(option);
+}
+
+export {
+  inject,
+  Anchor,
+  AnchorPosition,
+  Container
+}
