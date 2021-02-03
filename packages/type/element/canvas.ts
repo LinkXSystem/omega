@@ -1,8 +1,7 @@
-import { Container } from "./container";
+import { ContainerInterface } from "./container";
 
-export interface Canvas {
+export interface CanvasInterface {
   uuid: string;
-  root: HTMLDivElement;
   node: HTMLDivElement;
 
   width: number;
@@ -19,7 +18,7 @@ export interface Canvas {
     y: number;
   };
 
-  containers: Container;
+  containers: Array<ContainerInterface>;
 
   events: Array<Event>;
 }
