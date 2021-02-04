@@ -58,6 +58,7 @@
       border-top: 1px solid #b2b2b2;
     }
   </style>
+  <script src="../bundled/omega.js"></script>
 </head>
 
 <body>
@@ -65,7 +66,7 @@
 
   </div>
   <script>
-    const omega = Omega.inject();
+    const instance = Omega.inject();
 
     {
       const container = new Omega.Container();
@@ -76,7 +77,7 @@
       window.__container__ = container;
 
       Omega.Anchor.bind(container, Omega.AnchorPosition.TM)
-      omega.setContainer(container);
+      instance.setContainer(container);
     }
 
     {
@@ -87,7 +88,7 @@
       });
 
       Omega.Anchor.bind(container, Omega.AnchorPosition.BM)
-      omega.setContainer(container);
+      instance.setContainer(container);
     }
 
     const commands = [

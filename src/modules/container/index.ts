@@ -136,9 +136,9 @@ export class Container extends Element {
     this.canvas = canvas;
   }
 
-  setStyle(style: CSSStyleDeclaration) {
-    Object.values(style).map(([key, value]) => {
-      this.node.style[key] = value;
+  setStyle(style) {
+    StyleSheet.compose(this.node, {
+      ...style
     });
   }
 
