@@ -17,5 +17,5 @@ jobs:
       - name: install the library
         run: npm install
 
-      - name: build the libraay
+      - name: build the library
         run: npm run build
