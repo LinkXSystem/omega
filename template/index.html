@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Omega</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/material-design-icons/3.0.2/iconfont/material-icons.min.css"
+    rel="stylesheet">
   <style>
     html,
     body,
@@ -20,64 +22,117 @@
       overflow: hidden;
     }
 
-    #container {
+    body {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .command-block {
       position: fixed;
-      top: 0px;
-      left: 0px;
+      z-index: 100000;
+      top: 50%;
+      right: 0%;
+      transform: translateY(-50%);
+
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+
+      overflow: hidden;
+
+      box-shadow: 0px 10px 10px #b2b2b2;
+    }
+
+    .command-block>div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 3em;
+      height: 3em;
+
+      user-select: none;
+      cursor: inherit;
+    }
+
+    .command-block>div+div {
+      border-top: 1px solid #b2b2b2;
     }
   </style>
+  <script src="../bundled/omega.js"></script>
 </head>
 
 <body>
-  <div id="container"></div>
+  <div class="command-block">
+
+  </div>
   <script>
-    const container = document.getElementById('container');
-    const workspace = new Omega.inject({
-      type: 'svg',
-      workspace: {
-        container: container,
-        width: 5000,
-        height: 5000,
+    const instance = Omega.inject();
 
-        connection: {
-          line: 'curved',
-        },
+    {
+      const container = new Omega.Container();
+      container.setCoordinate({
+        x: 100,
+        y: 100
+      });
+      window.__container__ = container;
+
+      Omega.Anchor.bind(container, Omega.AnchorPosition.TM)
+      instance.setContainer(container);
+    }
+
+    {
+      const container = new Omega.Container();
+      container.setCoordinate({
+        x: -100,
+        y: -100
+      });
+
+      Omega.Anchor.bind(container, Omega.AnchorPosition.BM)
+      instance.setContainer(container);
+    }
+
+    const commands = [
+      {
+        command: 'setContainer',
+        icon: 'add',
+        callback: () => {
+          window.__omega__.setContainer();
+        }
       },
-    });
-
-    const { width, height } = container.getBoundingClientRect();
-
-    // new Array(2).fill('').forEach(() => {
-    //   const diameter = Math.floor(Math.random() * 100 + 200);
-    //   const x = Math.floor(Math.random() * width);
-    //   const y = Math.floor(Math.random() * height);
-    //   const circle = new Omega.Circle(diameter);
-    //   // circle.setCoordinate(x, y);
-    //   workspace.setNode(circle);
-    // });
-
-    const rectangles = [
-      [200 * Math.random(), 100 * Math.random()],
-      [200 * Math.random(), 100 * Math.random()],
-      [200 * Math.random(), 100 * Math.random()],
-      [200 * Math.random(), 100 * Math.random()],
+      {
+        command: 'toSerialize',
+        icon: 'code',
+        callback: () => {
+          const content = window.__omega__.toSerialize();
+          console.warn('content', content);
+        }
+      },
+      {
+        command: 'setAnchor',
+        icon: 'add',
+        callback: () => {
+          const anchor = new Omega.Anchor();
+          container.setAnchor(anchor);
+        }
+      }
     ];
 
-    rectangles.forEach((item) => {
-      const child = new Omega.Rectangle(...item, {
-        background: 'rgb(255, 0, 0)',
-      });
-      workspace.setNode(child);
-      child.setCoordinate(window.innerWidth * Math.random(), window.innerHeight * Math.random());
-    });
+    const blocks = document.querySelector('.command-block');
+    commands.forEach(item => {
+      const { command, icon, callback } = item;
+      const node = document.createElement('div');
+      node.dataset.command = command;
 
-      // const diamond = new Omega.Diamond(100, 4);
-      // diamond.render();
-      // diamond.setCoordinate(300, 200);
+      const child = document.createElement('i');
+      child.className = "material-icons";
+      child.innerText = icon;
 
-      // const comment = new Omega.Comment(workspace);
-      // comment.render();
-      // comment.setCoordinate(width - 380, height - 200);
+      node.appendChild(child);
+
+      blocks.appendChild(node);
+
+      node.addEventListener('click', callback);
+    })
   </script>
 </body>
 

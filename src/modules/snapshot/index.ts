@@ -1,14 +1,10 @@
-export default class Snapshot {
+export class Snapshot {
 
-    // constructor() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  frame: Array<Record<string, any>>;
 
-    // }
+  constructor() {
+    this.frame = [];
+  }
 
-    redo() {
-        console.warn('unimplement feature');
-    }
-
-    undo() {
-        console.warn('unimplement feature');
-    }
 }

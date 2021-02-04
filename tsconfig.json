@@ -1,11 +1,19 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noImplicitAny": false,
-    "moduleResolution": "node",
     "target": "es2015",
-    "lib": ["es2015", "dom"]
+    "module": "es2015",
+    "moduleResolution": "node",
+    "lib": ["es2015", "dom"],
+    "declaration": true,
+    "outDir": "./bin",
+    "baseUrl": ".",
+    // "strict": true,
+    // "strictNullChecks": true,
+    // "noImplicitAny": false,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noImplicitReturns": true,
+    // "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts"]
 }

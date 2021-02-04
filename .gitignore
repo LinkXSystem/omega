@@ -62,5 +62,12 @@ typings/
 
 # ignore the file of lock
 yarn.lock
+package-lock.json
 
 dist
+
+.DS_Store
+
+bin
+
+bundled
