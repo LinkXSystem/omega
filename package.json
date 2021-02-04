@@ -7,8 +7,7 @@
     "build": "rm -rf bin && tsc && rollup -c",
     "build:watch": "",
     "build:package": "node scripts/inquirer.js",
-    "version": "npm version patch",
-    "release": "",
+    "release": "standard-version",
     "lint": "eslint -c .eslintrc src/**/**.ts",
     "test": "jest",
     "tool": "live-server tools --port 3016"
@@ -44,6 +43,7 @@
     "rollup": "^2.38.4",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^7.0.2",
+    "standard-version": "^9.1.0",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3"
